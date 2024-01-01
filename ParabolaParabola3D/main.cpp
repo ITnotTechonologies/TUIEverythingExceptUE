@@ -246,8 +246,8 @@ int main()
 
     
     std::vector <double> Position2(3);
-    Position2[0] = -150;
-    Position2[1] = 150;
+    Position2[0] = -450;
+    Position2[1] = 0;
     Position2[2] = 400;
     double HorizontalAngle2 = 45;
     double VerticalAngle2 = 45;
