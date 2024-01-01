@@ -1,0 +1,4 @@
+C:\Users\ITnotTechnologies\UserDocs\GitHub\TUI\MathematicsSolution3DTEster\x64\Debug\MathematicsSolution3DTEster.exe
+C:\Users\Home User\Documents\GitHub\TUI\MathematicsSolution3DTEster\x64\Debug\MathematicsSolution3DTEster.exe
+C:\Users\Home User\Documents\GitHub\TUIBackUp\MathematicsSolution3DTEster\x64\Debug\MathematicsSolution3DTEster.exe
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\x64\Debug\ParabolaParabola3D.exe

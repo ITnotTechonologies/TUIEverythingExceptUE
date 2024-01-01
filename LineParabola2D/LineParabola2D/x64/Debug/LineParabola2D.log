@@ -1,0 +1,50 @@
+﻿  main.cpp
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,65): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(58,52): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,71): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(60,55): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,53): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,53): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,53): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,53): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,53): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,35): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,35): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,35): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,35): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(74,35): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(256,12): warning C4101: 'time1': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(256,19): warning C4101: 'time2': unreferenced local variable
+  LineParabola2D.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\x64\Debug\LineParabola2D.exe
