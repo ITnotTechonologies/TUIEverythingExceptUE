@@ -1,0 +1,166 @@
+
+double TimeOfFlight(double u, double angle, double z) {
+    double u_z = u * std::sin(degreesToRadians(angle));
+    double D = u_z * u_z + 2 * g * z;
+    double x2 = (-u_z - std::sqrt(D)) / (-g);
+
+    return x2;
+
+}
+
+double MaxHeight(double u) {
+    double t = 0.5f * TimeOfFlight(u, 90, 0);
+    return (u * t - 0.5f * g * t * t);
+}
+
+void ParabolaPoint2D(double u, std::vector<double>& Position, double& angle1, double& angle2, double& time1, double& time2) {
+    double x = Position[0];
+    double y = Position[1];
+    double x_0 = x;
+    x = abs(x);
+    double a = -g * 0.5 * std::pow((x / u), 2);
+    double b = x;
+    double c = a - y;
+    std::cout << a << ' ' << b << ' ' << c << std::endl;
+    double D = pow(b, 2) - 4 * a * c;
+
+    if (D > 0) {
+        std::cout << "2 Solutions\n";
+        double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
+        double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
+
+
+
+        angle1 = std::atan(t1) * 180 / pi;
+        angle2 = std::atan(t2) * 180 / pi;
+
+        time1 = x / (u * std::cos(degreesToRadians(angle1)));
+        time2 = x / (u * std::cos(degreesToRadians(angle2)));
+
+
+
+
+    }
+    else if (D == 0) {
+
+        double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
+        double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
+
+        std::cout << t1 << ' ' << t2 << std::endl;
+
+        angle1 = std::atan(t1) * 180 / pi;
+        angle2 = std::atan(t2) * 180 / pi;
+
+        time1 = x / (u * std::cos(degreesToRadians(angle1)));
+        time2 = x / (u * std::cos(degreesToRadians(angle2)));
+
+
+
+
+    }
+    else {
+
+        angle1 = -90;
+        angle2 = -90;
+        time1 = -1;
+        time2 = -1;
+    }
+    if (x_0 < 0) {
+        angle1 = 180 - angle1;
+        angle2 = 180 - angle2;
+    }
+    time1 = Rounding(time1, 0.01f);
+    time2 = Rounding(time2, 0.01f);
+
+}
+
+
+
+void ParabolaPoint3D(double u, std::vector<double> &Position, double& horizontal_angle, double& vertical_angle1, double& vertical_angle2, double &time1, double &time2)
+{
+    double x = Position[0];
+    double y = Position[1];
+    double z = Position[2];
+
+    std::vector <double> Position2D(2);
+
+    Position2D[0] = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+    Position2D[1] = z;
+    //double cos_value = x / positio
+    horizontal_angle = std::acos((x / Position2D[0])) * 180 / pi;
+
+    ParabolaPoint2D(u, Position2D, vertical_angle1, vertical_angle2, time1, time2);
+}
+
+bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1, double starting_vertical_angle1, double horizontal_angle2, double vertical_angle2, double c_h, double c_v, std::vector <double> Position1, std::vector <double> Position2, double& horizontal_result_angle, double& vertical_result_angle, double Step, double& CollisionTime, double& WaitTime) {
+    double x_0 = Position2[0] - Position1[0];
+    double y_0 = Position2[1] - Position1[1];
+    double z_0 = Position2[2] - Position1[2];
+    std::cout << x_0 << ';' << y_0 << ';' << z_0 << std::endl;
+    double u_x2 = u2 * std::cos(degreesToRadians(horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
+    double u_y2 = u2 * std::cos(degreesToRadians(90 - horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
+    double u_z2 = u2 * std::sin(degreesToRadians(vertical_angle2));
+    std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
+    double Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);
+    double MaxH = MaxHeight(u1);
+    double result_vertical_angle = -90;
+    CollisionTime = -1;
+    WaitTime = -1;
+
+    for (double t = Step; t < Time; t += Step) {
+
+        double s_x = u_x2 * t;
+        double s_y = u_y2 * t;
+        double s_z = u_z2 * t - 0.5 * t * t * g;
+        std::vector <double> CurrentPosition(3);
+        CurrentPosition[0] = x_0 + s_x;
+        CurrentPosition[1] = y_0 + s_y;
+        CurrentPosition[2] = z_0 + s_z;
+
+        if (CurrentPosition[2] > MaxH) continue;
+        double horizontal_angle, vertical_angle1, vertical_angle2, time1, time2;
+        std::cout << "t = " << t << std::endl;
+        ParabolaPoint3D(u1, CurrentPosition, horizontal_angle, vertical_angle1, vertical_angle2, time1, time2);
+        std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
+        std::cout << "x: " << CurrentPosition[0] << "  y: " << CurrentPosition[1] << " z: " << CurrentPosition[2] << std::endl;
+        std::cout << horizontal_angle << ':' << ' ' << vertical_angle1 << "->" << time1 << ' ' << vertical_angle2 << "->" << time2 << std::endl;
+        if (time1 <= t && time1 > 0) {
+            WaitTime = t - time1;
+            double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - horizontal_angle + starting_horizontal_angle1));
+            double RotationHTime = RotationH / c_h;
+            double RotationV = abs(starting_vertical_angle1 - vertical_angle1);
+            double RotationVTime = RotationV / c_v;
+            double RotationTime = std::max(RotationHTime, RotationVTime);
+            std::cout << "RotationH: " << RotationH  << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
+            if (RotationTime <= WaitTime) {
+                horizontal_result_angle = horizontal_angle;
+                vertical_result_angle = vertical_angle1;
+                CollisionTime = t;
+                break;
+            }
+            
+            
+        }
+        if (time2 <= t && time2 > 0) {
+            WaitTime = t - time2;
+            double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - abs(horizontal_angle - starting_horizontal_angle1)));
+            double RotationHTime = RotationH / c_h;
+            double RotationV = abs(starting_vertical_angle1 - vertical_angle2);
+            double RotationVTime = RotationV / c_v;
+            double RotationTime = std::max(RotationHTime, RotationVTime);
+            std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
+            if (RotationTime <= WaitTime) {
+                horizontal_result_angle = horizontal_angle;
+                vertical_result_angle = vertical_angle2;
+                CollisionTime = t;
+                break;
+            }
+        }
+
+    }
+
+    if (CollisionTime > 0) return true;
+    return false;
+
+}
+

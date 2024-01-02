@@ -1,0 +1,100 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (MathematicsSolutions2DTester.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.cpp
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,65): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(54,52): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,71): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(56,55): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(66,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,52): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,52): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,52): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,52): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,52): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,35): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,35): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,35): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,35): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(68,35): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,65): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(91,52): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,71): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244: 'argument': conversion from '_Ty' to 'T', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:         and
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:             T=float
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(93,55): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,53): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,53): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,53): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,53): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,53): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,28): warning C4101: 'time1': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,35): warning C4101: 'time2': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,12): warning C4101: 'angle1': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,20): warning C4101: 'angle2': unreferenced local variable
+  MathematicsSolutions2DTester.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\x64\Debug\ParabolaParabola2D.exe
