@@ -41,7 +41,7 @@ void DrawParabola(std::vector <double> Position, double u, double horizontal_ang
     std::vector <double> InitialPosition(3);
     InitialPosition[0] = Position[0] + 0.0f;
     InitialPosition[1] = Position[1] + 0.0f;
-    InitialPosition[2] = Position[2] + 0.0f;
+    InitialPosition[2] = Position[1] + 0.0f;
 
     double u_x = std::cos(degreesToRadians(vertical_angle)) * std::cos(degreesToRadians(horizontal_angle)) * u;
     double u_y = std::cos(degreesToRadians(vertical_angle)) * std::cos(degreesToRadians(90 - horizontal_angle)) * u;
@@ -55,7 +55,7 @@ void DrawParabola(std::vector <double> Position, double u, double horizontal_ang
         NewPosition[1] = InitialPosition[1] + s_y;
         NewPosition[2] = InitialPosition[2] - s_z;
         sf::VertexArray lines(sf::LinesStrip, 2);
-        lines[0].position = sf::Vector2f(Position[0], Position[2]);
+        lines[0].position = sf::Vector2f(Position[0], Position[1]);
         lines[0].color = TraceColour;
         lines[1].position = sf::Vector2f(NewPosition[0], NewPosition[2]);
         lines[1].color = TraceColour;
@@ -63,7 +63,7 @@ void DrawParabola(std::vector <double> Position, double u, double horizontal_ang
         window.draw(lines);
         Position[0] = NewPosition[0] + 0.0f;
         Position[1] = NewPosition[1] + 0.0f;
-        Position[2] = NewPosition[2] + 0.0f;
+        Position[1] = NewPosition[2] + 0.0f;
 
         //std::cout << Position[0] << ' ' << Position[1] << ' ' << Position[2] << std::endl;
 
@@ -71,7 +71,7 @@ void DrawParabola(std::vector <double> Position, double u, double horizontal_ang
     }
     sf::CircleShape shape(10.f);
     shape.setFillColor(Colour);
-    shape.setPosition(Position[0] - 10, Position[2] - 10);
+    shape.setPosition(Position[0] - 10, Position[1] - 10);
     window.draw(shape);
     if (Time == TimeCollision) std::cout << "Collision!\n";
 
@@ -111,79 +111,25 @@ void DrawLine(std::vector <double>& InitialPosition, double InitialVelocity, dou
 
 
 }
-
-void ParabolaPoint2D(double u, std::vector<double>& Position, double& angle1, double& angle2, double& time1, double& time2) {
-    double x = Position[0];
-    double y = Position[1];
-    double x_0 = x;
-    x = abs(x);
-    double a = -g * 0.5 * std::pow((x / u), 2);
-    double b = x;
-    double c = a - y;
-    std::cout << a << ' ' << b << ' ' << c << std::endl;
-    double D = pow(b, 2) - 4 * a * c;
-
-    if (D > 0) {
-        std::cout << "2 Solutions\n";
-        double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
-        double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
-
-
-
-        angle1 = std::atan(t1) * 180 / pi;
-        angle2 = std::atan(t2) * 180 / pi;
-
-        time1 = x / (u * std::cos(degreesToRadians(angle1)));
-        time2 = x / (u * std::cos(degreesToRadians(angle2)));
-
-
-
-
+double GetAngleOnThePlane(double x, double y) {
+    if (x == 0) {
+        if (y < 0) return 270;
+        if (y > 0) return 90;
     }
-    else if (D == 0) {
-
-        double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
-        double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
-
-        std::cout << t1 << ' ' << t2 << std::endl;
-
-        angle1 = std::atan(t1) * 180 / pi;
-        angle2 = std::atan(t2) * 180 / pi;
-
-        time1 = x / (u * std::cos(degreesToRadians(angle1)));
-        time2 = x / (u * std::cos(degreesToRadians(angle2)));
-
-
-
-
-    }
-    else {
-
-        angle1 = -90;
-        angle2 = -90;
-        time1 = -1;
-        time2 = -1;
-    }
-    if (x_0 < 0) {
-        angle1 = 180 - angle1;
-        angle2 = 180 - angle2;
-    }
-    time1 = Rounding(time1, 0.01f);
-    time2 = Rounding(time2, 0.01f);
+    double abs_x = abs(x);
+    double result = std::atan(y / abs_x) * 180 / pi;
+    if (x < 0) result = 180 - result;
+    return result;
 
 }
 
-void LinePoint2D(double u, std::vector <double> Position, double starting_angle, double& result_angle, double time) {
-    if (Position[0] != 0) {
-        double slope = Position[1] / abs(Position[0]);
-        double result_angle = std::atan(slope);
-        if (Position[0] < 0) result_angle = 180 - result_angle;
-    }
-    else result_angle = 90;
 
-    double s = std::sqrt((Position[0] * Position[0] + Position[1] * Position[1]));
-    time = s / u;
+void LinePoint2D(double u, std::vector <double> Position, double& result_angle, double& time) {
+    result_angle = GetAngleOnThePlane(Position[0], Position[1]);
+    double S = std::sqrt(Position[0] * Position[0] + Position[1] * Position[1]);
+    time = S / u;
 }
+
 
 bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2, double C, std::vector <double> Position1, std::vector <double> Position2, double& result_angle, double Step, double& CollisionTime, double& WaitTime, std::vector<double>& CollisionPosition) {
     double x_0 = Position2[0] - Position1[0];
@@ -194,9 +140,7 @@ bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2,
     double u_x2 = u2 * std::cos(degreesToRadians(angle2));
     double u_y2 = u2 * std::sin(degreesToRadians(angle2));
     std::cout << u_x2 << ' ' << u_y2 << std::endl;
-    double Time = TimeOfFlight(u2, angle2, Position2[1]);
-    double MaxH = MaxHeight(u1);
-    std::cout << MaxH << std::endl;
+    double Time = TimeOfFlight(u2, angle2, Position2[1]);//Get the time of colission of a Balistic Missile with the ground
     result_angle = -90;
     CollisionTime = -1;
     WaitTime = -1;
@@ -211,17 +155,19 @@ bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2,
         double x = x_0 + s_x;
         double y = y_0 + s_y;
 
-        if (y > MaxH) continue;
 
-        double angle1, angle2, time1, time2;
+        double angle1 = 0, time1 = -1;
         std::cout << "t = " << t << std::endl;
-        ParabolaPoint2D(u1, x, y, angle1, angle2, time1, time2);
+        std::vector <double> CurrentPosition(2);
+        CurrentPosition[0] = x;
+        CurrentPosition[1] = y;
+        LinePoint2D(u1, CurrentPosition, angle1, time1);
         std::cout << "x: " << x << "  y: " << y << std::endl;
-        std::cout << angle1 << "->" << time1 << ' ' << angle2 << "->" << time2 << std::endl;
+        std::cout << angle1 << "->" << time1 << std::endl;
+        if (angle1 != angle1) continue; // check the collision with the suroundings for the projectile, fired at an angle = angle1, with g = 0
         if (time1 <= t && angle1 != -90) {
             double Rotation = abs(starting_angle1 - angle1);
             double RotationTime = Rotation / C;
-            //double RotationTime = 0;
             std::cout << "Rotation: " << Rotation << " RotationTime: " << RotationTime << std::endl;
             WaitTime = t - time1;
             if (WaitTime >= RotationTime) {
@@ -233,19 +179,7 @@ bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2,
             }
 
         }
-        if (time2 <= t && angle2 != -90) {
-            double Rotation = abs(starting_angle1 - angle2);
-            double RotationTime = Rotation / C;
-            //double RotationTime = 0;
-            WaitTime = t - time2;
-            if (WaitTime >= RotationTime) {
-                result_angle = angle2;
-                CollisionTime = t;
-                CollisionPosition[0] = x;
-                CollisionPosition[1] = y;
-                break;
-            }
-        }
+
 
     }
     if (CollisionTime > 0) return true;
@@ -258,45 +192,43 @@ bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2,
 int main()
 {
     std::ios_base::sync_with_stdio(false);
-    sf::CircleShape shape(10.f);
-    shape.setFillColor(sf::Color::Green);
-    std::vector <double> Position1(3);
+    sf::CircleShape Point(10.f);
+    Point.setFillColor(sf::Color::Green);
+    std::vector <double> PointPosition(2);
+    PointPosition[0] = 100;
+    PointPosition[1] = 100;
+    Point.setPosition(PointPosition[0] - 10, PointPosition[1] - 10);
+
+    std::vector <double> Position1(2);
     Position1[0] = 0;
-    Position1[1] = 0;
-    Position1[2] = 750;
+    Position1[1] = 750;
     double VerticalAngle1 = 45;
-    double HorizontalAngle1 = 90;
     double U1 = 135;
     double D_TIME = 0.01f;
     double Time = 0.0f;
 
 
-    std::vector <double> Position2(3);
+    std::vector <double> Position2(2);
     Position2[0] = -150;
-    Position2[1] = 150;
-    Position2[2] = 400;
-    double HorizontalAngle2 = 45;
-    double VerticalAngle2 = 45;
+    Position2[1] = 0;
+    double VerticalAngle2 = 15;
     double U2 = 75;
 
     double time1, time2;
-    double CollisionTime, WaitTime;
+    double CollisionTime = 0, WaitTime;
+    std::vector <double> CollisionPosition(2);
     std::vector<double>RemakePosition2(3);
     RemakePosition2[0] = Position2[0];
-    RemakePosition2[1] = Position2[1];
-    RemakePosition2[2] = 750 - Position2[2];
+    RemakePosition2[1] = 750 - Position2[1];
+    
 
     std::vector<double>RemakePosition1(3);
     RemakePosition1[0] = Position1[0];
-    RemakePosition1[1] = Position1[1];
-    RemakePosition1[2] = 750 - Position1[2];
-    double ResultHorizontalAngle, ResultVerticalAngle;
-    double c_h = 10, c_v = 10;
-    bool f = ParabolaParabola3D(U1, U2, HorizontalAngle1, VerticalAngle1, HorizontalAngle2, VerticalAngle2, c_h, c_v, RemakePosition1, RemakePosition2, ResultHorizontalAngle, ResultVerticalAngle, 0.1f, CollisionTime, WaitTime);
-    std::cout << ResultHorizontalAngle << ' ' << ResultVerticalAngle << ' ' << CollisionTime << ' ' << WaitTime << std::endl;
-
-
-    //VerticalAngle1 = 64.0f;
+    RemakePosition1[1] = 750 - Position1[1];
+    double ResultVerticalAngle;
+    double c_v = 10;
+    bool f = LineParabola2D(U1, U2, VerticalAngle1, VerticalAngle2, 5, RemakePosition1, RemakePosition2, ResultVerticalAngle, 0.1f, CollisionTime, WaitTime, CollisionPosition);
+    std::cout << ResultVerticalAngle << ' ' << CollisionTime << std::endl;
 
     while (window.isOpen())
     {
@@ -316,9 +248,11 @@ int main()
 
         if (Time == Rounding(CollisionTime, 0.01f)) std::cout << "Collision\n";
 
-        DrawParabola(Position1, U1, ResultHorizontalAngle, ResultVerticalAngle, Time - WaitTime, D_TIME, sf::Color::Yellow, sf::Color::Blue, 0);
-        DrawParabola(Position2, U2, HorizontalAngle2, VerticalAngle2, Time, D_TIME, sf::Color::Yellow, sf::Color::Blue, 0);
-
+        /*DrawParabola(Position1, U1, ResultHorizontalAngle, ResultVerticalAngle, Time - WaitTime, D_TIME, sf::Color::Yellow, sf::Color::Blue, 0);
+        DrawParabola(Position2, U2, HorizontalAngle2, VerticalAngle2, Time, D_TIME, sf::Color::Yellow, sf::Color::Bl*/
+        window.draw(Point);
+        DrawParabola(Position2, U2, 0, VerticalAngle2, Time, 0.1f, sf::Color::Green, sf::Color::Yellow, 0);
+        DrawLine(Position1, U1, ResultVerticalAngle, Time - WaitTime, D_TIME, sf::Color::Green, sf::Color::Yellow);
 
         //std::cout << Time << std::endl;
         window.display();
