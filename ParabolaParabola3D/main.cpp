@@ -36,6 +36,18 @@ double MaxHeight(double u) {
     return (u * t - 0.5f * g * t * t);
 }
 
+double GetAngleOnThePlane(double x, double y) {
+    if (x == 0) {
+        if (y < 0) return 270;
+        if (y > 0) return 90;
+    }
+    double abs_x = abs(x);
+    double result = std::atan(y / abs_x) * 180 / pi;
+    if (x < 0) result = 180 - result;
+    return result;
+
+}
+
 void DrawParabola(std::vector <double> Position, double u, double horizontal_angle, double vertical_angle, double Time, double D_TIME, sf::Color Colour, sf::Color TraceColour, double TimeCollision) {
     //std::ios_base::sync_with_stdio(false);
     std::vector <double> InitialPosition(3);
@@ -152,7 +164,7 @@ void ParabolaPoint3D(double u, std::vector<double> &Position, double& horizontal
     Position2D[0] = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
     Position2D[1] = z;
     //double cos_value = x / positio
-    horizontal_angle = std::acos((x / Position2D[0])) * 180 / pi;
+    horizontal_angle = GetAngleOnThePlane(x, y);
 
     ParabolaPoint2D(u, Position2D, vertical_angle1, vertical_angle2, time1, time2);
 }
@@ -166,7 +178,7 @@ bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1,
     double u_y2 = u2 * std::cos(degreesToRadians(90 - horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
     double u_z2 = u2 * std::sin(degreesToRadians(vertical_angle2));
     std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
-    double Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);
+    double Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);//Get a time of flight using the UE function for "tsil'"
     double MaxH = MaxHeight(u1);
     double result_vertical_angle = -90;
     CollisionTime = -1;
@@ -189,38 +201,43 @@ bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1,
         std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
         std::cout << "x: " << CurrentPosition[0] << "  y: " << CurrentPosition[1] << " z: " << CurrentPosition[2] << std::endl;
         std::cout << horizontal_angle << ':' << ' ' << vertical_angle1 << "->" << time1 << ' ' << vertical_angle2 << "->" << time2 << std::endl;
-        if (time1 <= t && time1 > 0) {
-            WaitTime = t - time1;
-            double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - horizontal_angle + starting_horizontal_angle1));
-            double RotationHTime = RotationH / c_h;
-            double RotationV = abs(starting_vertical_angle1 - vertical_angle1);
-            double RotationVTime = RotationV / c_v;
-            double RotationTime = std::max(RotationHTime, RotationVTime);
-            std::cout << "RotationH: " << RotationH  << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
-            if (RotationTime <= WaitTime) {
-                horizontal_result_angle = horizontal_angle;
-                vertical_result_angle = vertical_angle1;
-                CollisionTime = t;
-                break;
+        if (vertical_angle1 == vertical_angle1) { //check the angle at which projectile is fired for collision with surounding environment
+            if (time1 <= t && time1 > 0) {
+                WaitTime = t - time1;
+                double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - horizontal_angle + starting_horizontal_angle1));
+                double RotationHTime = RotationH / c_h;
+                double RotationV = abs(starting_vertical_angle1 - vertical_angle1);
+                double RotationVTime = RotationV / c_v;
+                double RotationTime = std::max(RotationHTime, RotationVTime);
+                std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
+                if (RotationTime <= WaitTime) {
+                    horizontal_result_angle = horizontal_angle;
+                    vertical_result_angle = vertical_angle1;
+                    CollisionTime = t;
+                    break;
+                }
             }
             
-            
         }
-        if (time2 <= t && time2 > 0) {
-            WaitTime = t - time2;
-            double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - abs(horizontal_angle - starting_horizontal_angle1)));
-            double RotationHTime = RotationH / c_h;
-            double RotationV = abs(starting_vertical_angle1 - vertical_angle2);
-            double RotationVTime = RotationV / c_v;
-            double RotationTime = std::max(RotationHTime, RotationVTime);
-            std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
-            if (RotationTime <= WaitTime) {
-                horizontal_result_angle = horizontal_angle;
-                vertical_result_angle = vertical_angle2;
-                CollisionTime = t;
-                break;
+        if (vertical_angle2 == vertical_angle2) // you know what to do 
+        {
+            if (time2 <= t && time2 > 0) {
+                WaitTime = t - time2;
+                double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - abs(horizontal_angle - starting_horizontal_angle1)));
+                double RotationHTime = RotationH / c_h;
+                double RotationV = abs(starting_vertical_angle1 - vertical_angle2);
+                double RotationVTime = RotationV / c_v;
+                double RotationTime = std::max(RotationHTime, RotationVTime);
+                std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
+                if (RotationTime <= WaitTime) {
+                    horizontal_result_angle = horizontal_angle;
+                    vertical_result_angle = vertical_angle2;
+                    CollisionTime = t;
+                    break;
+                }
             }
         }
+        
 
     }
 
@@ -246,7 +263,7 @@ int main()
 
     
     std::vector <double> Position2(3);
-    Position2[0] = -450;
+    Position2[0] = 450;
     Position2[1] = 0;
     Position2[2] = 400;
     double HorizontalAngle2 = 45;

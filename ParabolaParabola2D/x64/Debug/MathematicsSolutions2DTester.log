@@ -93,8 +93,8 @@ C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35
 C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244:         [
 C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244:             _Ty=double
 C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(106,35): warning C4244:         ]
-C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,28): warning C4101: 'time1': unreferenced local variable
-C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,35): warning C4101: 'time2': unreferenced local variable
-C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,12): warning C4101: 'angle1': unreferenced local variable
-C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(312,20): warning C4101: 'angle2': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(309,28): warning C4101: 'time1': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(309,35): warning C4101: 'time2': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(309,12): warning C4101: 'angle1': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\main.cpp(309,20): warning C4101: 'angle2': unreferenced local variable
   MathematicsSolutions2DTester.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola2D\x64\Debug\ParabolaParabola2D.exe

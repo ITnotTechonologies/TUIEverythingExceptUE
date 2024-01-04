@@ -5,7 +5,7 @@
 
 const double pi = 3.14159265359;
 
-const double g = 9.81f;
+const double g = 0.981f;
 
 sf::RenderWindow window(sf::VideoMode(2000, 750), "SFML works!");
 
@@ -203,34 +203,40 @@ bool ParabolaParabola2D(double u1, double u2, double starting_angle1, double ang
         ParabolaPoint2D(u1, x, y, angle1, angle2, time1, time2);
         std::cout << "x: " << x << "  y: " << y << std::endl;
         std::cout << angle1 << "->" << time1 << ' ' << angle2 << "->" << time2 << std::endl;
-        if (time1 <= t && angle1 != -90) {
-            double Rotation = abs(starting_angle1 - angle1);
-            double RotationTime = Rotation / C;
-            //double RotationTime = 0;
-            std::cout << "Rotation: " << Rotation << " RotationTime: " << RotationTime << std::endl;
-            WaitTime = t - time1;
-            if (WaitTime >= RotationTime) {
-                result_angle = angle1;
-                CollisionTime = t;
-                CollisionPosition[0] = x;
-                CollisionPosition[1] = y;
-                break;
-            }
-            
-        }
-        if (time2 <= t && angle2 != -90) {
-            double Rotation = abs(starting_angle1 - angle2);
-            double RotationTime = Rotation / C;
-            //double RotationTime = 0;
-            WaitTime = t - time2;
-            if (WaitTime >= RotationTime) {
-                result_angle = angle2;
-                CollisionTime = t;
-                CollisionPosition[0] = x;
-                CollisionPosition[1] = y;
-                break;
+        if (angle1 == angle1)
+        {
+            if (time1 <= t && angle1 != -90) {
+                double Rotation = abs(starting_angle1 - angle1);
+                double RotationTime = Rotation / C;
+                //double RotationTime = 0;
+                std::cout << "Rotation: " << Rotation << " RotationTime: " << RotationTime << std::endl;
+                WaitTime = t - time1;
+                if (WaitTime >= RotationTime) {
+                    result_angle = angle1;
+                    CollisionTime = t;
+                    CollisionPosition[0] = x;
+                    CollisionPosition[1] = y;
+                    break;
+                }
+
             }
         }
+        if (angle2 == angle2) {
+            if (time2 <= t && angle2 != -90) {
+                double Rotation = abs(starting_angle1 - angle2);
+                double RotationTime = Rotation / C;
+                //double RotationTime = 0;
+                WaitTime = t - time2;
+                if (WaitTime >= RotationTime) {
+                    result_angle = angle2;
+                    CollisionTime = t;
+                    CollisionPosition[0] = x;
+                    CollisionPosition[1] = y;
+                    break;
+                }
+            }
+        }
+        
 
     }
     if (CollisionTime > 0) return true;
@@ -242,13 +248,13 @@ int main()
     std::ios_base::sync_with_stdio(false);
     sf::CircleShape shape(10.f);
     shape.setFillColor(sf::Color::Green);
-    std::vector <double> position(2);
-    position[0] = 930 + 750;
-    position[1] = 123;
-    double initialAngle = 130;
+    std::vector <double> Position1(2);
+    Position1[0] = -95;
+    Position1[1] = 671;
+    double initialAngle = 90;
 
 
-    double initialVelocity = 500;
+    double initialVelocity = 60;
     double u_x = std::cos(degreesToRadians(initialAngle)) * initialVelocity;
     double v_x = u_x;
     double u_y = std::sin(degreesToRadians(initialAngle)) * initialVelocity;
@@ -258,11 +264,11 @@ int main()
     double Time = 0.0f;
 
     //object2
-    std::vector <double> position2(2);
-    position2[0] = -174 + 750;
-    position2[1] = 716;
-    double initialAngle2 = 70;
-    double initialVelocity2 = 200;
+    std::vector <double> Position2(2);
+    Position2[0] = 180;
+    Position2[1] = 663;
+    double initialAngle2 = 120;
+    double initialVelocity2 = 30;
 
     u_x = std::cos(degreesToRadians(initialAngle2)) * initialVelocity2;
     v_x = u_x;
@@ -290,12 +296,12 @@ int main()
     double CollisionTime, WaitTime;
     std::vector<double>CollisionPosition(2);
     std::vector<double>RemakePosition2(2);
-    RemakePosition2[0] = -1740;
-    RemakePosition2[1] = 340;
+    RemakePosition2[0] = Position2[0];
+    RemakePosition2[1] = 750 - Position2[1];
 
     std::vector<double>RemakePosition1(2);
-    RemakePosition1[0] = 930;
-    RemakePosition1[1] = 5960;
+    RemakePosition1[0] = Position1[0];
+    RemakePosition1[1] = 750 - Position1[1];
 
 
     double C = 200.0f;
@@ -330,8 +336,8 @@ int main()
         
         if (Time == Rounding(CollisionTime, 0.01f)) std::cout << "Collision\n";
 
-        DrawParabola(position, initialVelocity, ResultAngle, Time - WaitTime, D_TIME, sf::Color::Red, sf::Color::Yellow, 0);
-        DrawParabola(position2, initialVelocity2,  initialAngle2, Time, D_TIME, sf::Color::Red, sf::Color::Blue, 0);
+        DrawParabola(Position1, initialVelocity, ResultAngle, Time - WaitTime, D_TIME, sf::Color::Red, sf::Color::Yellow, 0);
+        DrawParabola(Position2, initialVelocity2,  initialAngle2, Time, D_TIME, sf::Color::Red, sf::Color::Blue, 0);
         //std::cout << Time << std::endl;
         window.display();
     }
