@@ -46,6 +46,7 @@ C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(86,35)
 C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(86,35): warning C4244:         [
 C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(86,35): warning C4244:             _Ty=double
 C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(86,35): warning C4244:         ]
-C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(273,12): warning C4101: 'time1': unreferenced local variable
-C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(273,19): warning C4101: 'time2': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(247,41): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(276,12): warning C4101: 'time1': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\main.cpp(276,19): warning C4101: 'time2': unreferenced local variable
   MathematicsSolution3DTEster.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\ParabolaParabola3D\x64\Debug\ParabolaParabola3D.exe

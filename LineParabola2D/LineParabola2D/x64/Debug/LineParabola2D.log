@@ -91,16 +91,19 @@ C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main
 C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(109,35): warning C4244:         [
 C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(109,35): warning C4244:             _Ty=double
 C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(109,35): warning C4244:         ]
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,63): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,63): warning C4244:         with
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,63): warning C4244:         [
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,63): warning C4244:             _Ty=double
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,63): warning C4244:         ]
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,40): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,40): warning C4244:         with
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,40): warning C4244:         [
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,40): warning C4244:             _Ty=double
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(200,40): warning C4244:         ]
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(217,12): warning C4101: 'time1': unreferenced local variable
-C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(217,19): warning C4101: 'time2': unreferenced local variable
-  LineParabola2D.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\x64\Debug\LineParabola2D.exe
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,63): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,63): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,63): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,63): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,63): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,40): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,40): warning C4244:         with
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,40): warning C4244:         [
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,40): warning C4244:             _Ty=double
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(202,40): warning C4244:         ]
+C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(232,14): error C2660: 'LineParabola2D': function does not take 12 arguments
+  C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(134,6):
+  see declaration of 'LineParabola2D'
+  C:\Users\Home User\Documents\GitHub\TUIBackUp\LineParabola2D\LineParabola2D\main.cpp(232,14):
+  while trying to match the argument list '(double, double, double, double, int, std::vector<double,std::allocator<double>>, std::vector<double,std::allocator<double>>, double, float, double, double, std::vector<double,std::allocator<double>>)'
+  

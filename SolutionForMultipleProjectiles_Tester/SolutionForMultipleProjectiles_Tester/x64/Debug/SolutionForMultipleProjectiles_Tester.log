@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(11,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(50,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(76,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(95,24): warning C4018: '>': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(105,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(114,29): warning C4018: '<': signed/unsigned mismatch
+  SolutionForMultipleProjectiles_Tester.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\x64\Debug\SolutionForMultipleProjectiles_Tester.exe

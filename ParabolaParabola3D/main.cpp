@@ -5,7 +5,7 @@
 
 const double pi = 3.14159265359;
 
-const double g = 9.81;
+const double g = 4.9;
 
 sf::RenderWindow window(sf::VideoMode(1500, 750), "SFML works!");
 
@@ -169,7 +169,7 @@ void ParabolaPoint3D(double u, std::vector<double> &Position, double& horizontal
     ParabolaPoint2D(u, Position2D, vertical_angle1, vertical_angle2, time1, time2);
 }
 
-bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1, double starting_vertical_angle1, double horizontal_angle2, double vertical_angle2, double c_h, double c_v, std::vector <double> Position1, std::vector <double> Position2, double& horizontal_result_angle, double& vertical_result_angle, double Step, double& CollisionTime, double& WaitTime) {
+bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1, double starting_vertical_angle1, double horizontal_angle2, double vertical_angle2, double c_h, double c_v, std::vector <double> Position1, std::vector <double> Position2, double& horizontal_result_angle, double& vertical_result_angle, double Step, double& CollisionTime, double& WaitTime, std::vector <double> &CollisionPosition) {
     double x_0 = Position2[0] - Position1[0];
     double y_0 = Position2[1] - Position1[1];
     double z_0 = Position2[2] - Position1[2];
@@ -214,6 +214,7 @@ bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1,
                     horizontal_result_angle = horizontal_angle;
                     vertical_result_angle = vertical_angle1;
                     CollisionTime = t;
+                    CollisionPosition = CurrentPosition;
                     break;
                 }
             }
@@ -233,6 +234,8 @@ bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1,
                     horizontal_result_angle = horizontal_angle;
                     vertical_result_angle = vertical_angle2;
                     CollisionTime = t;
+                    CollisionPosition = CurrentPosition;
+
                     break;
                 }
             }
@@ -241,7 +244,7 @@ bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1,
 
     }
 
-    if (CollisionTime > 0) return true;
+    if (CollisionTime > 0 & WaitTime > 0) return true;
     return false;
 
 }
@@ -252,23 +255,23 @@ int main()
     sf::CircleShape shape(10.f);
     shape.setFillColor(sf::Color::Green);
     std::vector <double> Position1(3);
-    Position1[0] = 0;
-    Position1[1] = 0;
-    Position1[2] = 750;
-    double VerticalAngle1 = 45;
-    double HorizontalAngle1 = 90;
-    double U1 = 135;
-    double D_TIME = 0.01f;
+    Position1[0] = -513 + 1500;
+    Position1[1] = -1945;
+    Position1[2] = 601.5 + 1500;
+    double VerticalAngle1 = 40;
+    double HorizontalAngle1 = -130;
+    double U1 = 750;
+    double D_TIME = 0.0025f;
     double Time = 0.0f;
 
     
     std::vector <double> Position2(3);
-    Position2[0] = 450;
-    Position2[1] = 0;
-    Position2[2] = 400;
-    double HorizontalAngle2 = 45;
-    double VerticalAngle2 = 45;
-    double U2 = 75;
+    Position2[0] = 40 + 1500;
+    Position2[1] = -2485;
+    Position2[2] = -390 + 1500;
+    double HorizontalAngle2 = 202;
+    double VerticalAngle2 = 28;
+    double U2 = 500;
     
     double time1, time2;
     double CollisionTime, WaitTime;
@@ -282,10 +285,12 @@ int main()
     RemakePosition1[1] = Position1[1];
     RemakePosition1[2] = 750 - Position1[2];
     double ResultHorizontalAngle, ResultVerticalAngle;
-    double c_h = 10, c_v = 10;
-    bool f = ParabolaParabola3D(U1, U2,HorizontalAngle1, VerticalAngle1, HorizontalAngle2, VerticalAngle2, c_h, c_v, RemakePosition1, RemakePosition2, ResultHorizontalAngle, ResultVerticalAngle, 0.1f, CollisionTime, WaitTime);
+    double c_h = 184, c_v = 184;
+    std::vector <double> CollisionPosition(3);
+    bool f = ParabolaParabola3D(U1, U2,HorizontalAngle1, VerticalAngle1, HorizontalAngle2, VerticalAngle2, c_h, c_v, RemakePosition1, RemakePosition2, ResultHorizontalAngle, ResultVerticalAngle, 0.1f, CollisionTime, WaitTime, CollisionPosition);
     std::cout << ResultHorizontalAngle << ' ' << ResultVerticalAngle << ' ' << CollisionTime << ' ' << WaitTime << std::endl;
-
+    std::cout << CollisionPosition[0] << ' ' << CollisionPosition[1] << ' ' << CollisionPosition[2] << std::endl;
+    std::cout << f << std::endl;
 
     //VerticalAngle1 = 64.0f;
 
