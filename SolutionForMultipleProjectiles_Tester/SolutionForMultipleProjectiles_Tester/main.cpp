@@ -70,7 +70,7 @@ bool LineParabola2D(float u1, float u2, float starting_angle1, float angle2, flo
 
 
         float angle1 = 0, time1 = -1;
-        std::cout << "t = " << t << std::endl;
+        //std::cout << "t = " << t << std::endl;
         std::vector <float> CurrentPosition(2);
         CurrentPosition[0] = x;
         CurrentPosition[1] = y;
@@ -378,13 +378,42 @@ struct situation_data {
 };
 
 
+void CreatingSituation(vector <object> &projectiles, vector <object> &targets, vector <vector<situation_data>> situations_matrix) {
+    int target_amount = targets.size();
+    int projectile_amount = projectiles.size();
+    for (int i = 0; i < target_amount; i++) {
+        for (int j = 0; j < projectile_amount; j++) {
+            vector <float> Position1(3);
+            Position1[0] = projectiles[j].x;
+            Position1[1] = projectiles[j].y;
+            Position1[2] = projectiles[j].z;
+            vector <float> Position2(3);
+            Position2[0] = targets[i].x;
+            Position2[1] = targets[i].y;
+            Position2[2] = targets[i].z;
+            if (projectiles[j].IsBalistic) situations_matrix[i][j].IsPossible = ParabolaParabola3D(projectiles[j].u, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime);
+            else situations_matrix[i][j].IsPossible = LineParabola3D(projectiles[j].u, projectiles[j].a, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime, projectiles[j].fuel_amount, projectiles[j].fuel_price);
 
-void ProcessingSituation(vector <vector<situation_data>> &situations_matrix) {
-    int target_amount = situations_matrix.size();
-    int projectile_amount;
-    if (target_amount) {
-        projectile_amount = situations_matrix[0].size();
+        }
     }
+}
+
+
+void ProcessingSituation(vector <object> projectiles, vector <object> targets) {
+    int target_amount = targets.size();
+    int projectile_amount = projectiles.size();
+    vector < vector<situation_data>> situations_matrix;
+    situations_matrix.resize(target_amount);
+    for (int i = 0; i < target_amount; i++) {
+        situations_matrix[i].resize(projectile_amount);
+    }
+    CreatingSituation(projectiles, targets, situations_matrix);
+    for (int i = 0; i < target_amount; i++) {
+        for (int j = 0; j < projectile_amount; j++) cout << situations_matrix[i][j].IsPossible << ' ';
+        cout << endl;
+    }
+    
+    //CreatingSituation()
        
     int  max_possbile = min(projectile_amount, target_amount);
     int amount = 1;
@@ -464,14 +493,14 @@ int main() {
     vector <object> projectiles(projectile_amount);
     int target_amount = 4;
     vector <object> targets(target_amount);
-    vector < vector<situation_data>> situations_matrix;
+    
 
     for (int i = 0; i < projectile_amount; i++) {
-        projectiles[i].u = rand() % 100 + 50;
+        projectiles[i].u = rand() % 100 + 100;
         projectiles[i].a = rand() % 10;
-        projectiles[i].c_h = rand() % 90;
-        projectiles[i].c_v = rand() % 90;
-        projectiles[i].fuel_amount = rand() % 100;
+        projectiles[i].c_h = rand() % 360 + 20;
+        projectiles[i].c_v = rand() % 360 + 20;
+        projectiles[i].fuel_amount = rand() % 1000;
         projectiles[i].fuel_price = rand() % 10;
         projectiles[i].horizontal_angle = rand() % 360;
         projectiles[i].vertical_angle = rand() % 180;
@@ -483,7 +512,7 @@ int main() {
     }
 
     for (int i = 0; i < target_amount; i++) {
-        targets[i].u = rand() % 100;
+        targets[i].u = rand() % 100 + 100;
         targets[i].a = rand() % 10;
         targets[i].c_h = rand() % 90;
         targets[i].c_v = rand() % 90;
@@ -495,40 +524,17 @@ int main() {
         targets[i].x = rand() % 200 + 500;
         targets[i].y = rand() % 200 + 500;
         targets[i].z = rand() % 200 + 250;
-        cout << i << "target->" << "\nU: " << projectiles[i].u << "\na : " << projectiles[i].a << "\nc_h : " << projectiles[i].c_h << "\nc_v : " << projectiles[i].c_v << "\nfuel_amount : " << projectiles[i].fuel_amount << "\nfuel_price : " << projectiles[i].fuel_price << "\nhorizontal_angle : " << projectiles[i].horizontal_angle << "\nvertical_angle : " << projectiles[i].vertical_angle << "\nBalistic ? : " << projectiles[i].IsBalistic << "\nx : " << projectiles[i].x << "\y : " << projectiles[i].y << "\nz : " << projectiles[i].z << endl;
+        cout << i << "target->" << "\nU: " << targets[i].u << "\na : " << targets[i].a << "\nc_h : " << targets[i].c_h << "\nc_v : " << targets[i].c_v << "\nfuel_amount : " << targets[i].fuel_amount << "\nfuel_price : " << targets[i].fuel_price << "\nhorizontal_angle : " << targets[i].horizontal_angle << "\nvertical_angle : " << targets[i].vertical_angle << "\nBalistic ? : " << targets[i].IsBalistic << "\nx : " << targets[i].x << "\y : " << targets[i].y << "\nz : " << targets[i].z << endl;
 
     }
     
 
-    for (int i = 0; i < target_amount; i++) {
-        for (int j = 0; j < projectile_amount; j++) {
-            vector <float> Position1(3);
-            Position1[0] = projectiles[j].x;
-            Position1[1] = projectiles[j].y;
-            Position1[2] = projectiles[j].z;
-            vector <float> Position2(3);
-            Position2[0] = projectiles[j].x;
-            Position2[1] = projectiles[j].y;
-            Position2[2] = projectiles[j].z;
-            if (projectiles[j].IsBalistic) situations_matrix[i][j].IsPossible = ParabolaParabola3D(projectiles[j].u, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime);
-            else situations_matrix[i][j].IsPossible = LineParabola3D(projectiles[j].u, projectiles[j].a, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime, projectiles[j].fuel_amount, projectiles[j].fuel_price);
-
-        }
-    }
     
-    situations_matrix.resize(target_amount);
-    for (int i = 0; i < target_amount; i++) {
-        situations_matrix[i].resize(projectile_amount);
-        for (int j = 0; j < projectile_amount; j++) {
-            bool x = situations_matrix[i][j].IsPossible;
-            cout << x << ' ';
-        }
-        cout << endl;
-
-    }
+    
+    
     
 
-    ProcessingSituation(situations_matrix);
+    ProcessingSituation(projectiles, targets);
 
     
 }
