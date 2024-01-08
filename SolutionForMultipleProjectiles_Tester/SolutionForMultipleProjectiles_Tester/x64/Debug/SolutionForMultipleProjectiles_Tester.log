@@ -1,8 +1,9 @@
 ﻿  main.cpp
-C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(11,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(50,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(76,35): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(95,24): warning C4018: '>': signed/unsigned mismatch
-C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(105,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(114,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(139,51): warning C4101: 'vertical_angle2': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(139,75): warning C4101: 'time2': unreferenced local variable
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(375,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(378,54): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(421,33): warning C4267: '/=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(429,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\SolutionForMultipleProjectiles_Tester\main.cpp(454,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   SolutionForMultipleProjectiles_Tester.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\SolutionForMultipleProjectiles_Tester\x64\Debug\SolutionForMultipleProjectiles_Tester.exe

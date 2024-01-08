@@ -5,7 +5,7 @@
 
 const double pi = 3.14159265359;
 
-const double g = 0.981f;
+const double g = 9.81f;
 
 sf::RenderWindow window(sf::VideoMode(2000, 750), "SFML works!");
 
