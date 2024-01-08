@@ -443,12 +443,12 @@ void ProcessingSituation(vector <object> projectiles, vector <object> targets) {
     cout << endl;
 
     for (int i = 0; i < target_amount; i++) {
-        if (matrix[i].size()!=0){
+    
         for (int j = 0; j < matrix[i].size(); j++) {
             cout << matrix[i][j] << " ";
         }
         cout << endl;
-        }
+
     }
     cout << amount << endl << endl;
     for (int i = 0; i < amount; i++) {
@@ -457,14 +457,14 @@ void ProcessingSituation(vector <object> projectiles, vector <object> targets) {
         vector<int > ans;
         set<int > arr;
         for (int j = 0; j < target_amount; j++) {
-            if (matrix[j].size()!=0){
+  
             t2 /= matrix[j].size();
             int  k = t1 / t2;
             t1 = t1 - k * t2;
             
             ans.push_back(matrix[j][k]);
             arr.insert(matrix[j][k]);
-            }
+
         }
         if (arr.size() > max_current) {
             max_current = arr.size();
