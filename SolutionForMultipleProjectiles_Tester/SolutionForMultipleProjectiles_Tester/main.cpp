@@ -582,10 +582,16 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
     //cout << endl;
 
     for (int i = 0; i < target_amount; i++) {
+    
         for (int j = 0; j < matrix[i].size(); j++) {
             //cout << matrix[i][j] << " ";
         }
+<<<<<<< HEAD
         //cout << endl;
+=======
+        cout << endl;
+
+>>>>>>> af4bdc2ad2dbe164fd4813f87700411f42d5dbcb
     }
     //cout << amount << endl << endl;
     for (int i = 0; i < amount; i++) {
@@ -594,6 +600,7 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
         vector<int > ans;
         set<int > arr;
         for (int j = 0; j < target_amount; j++) {
+<<<<<<< HEAD
             if (matrix[j].size() != 0) {
                 t2 /= matrix[j].size();
                 int  k = t1 / t2;
@@ -607,6 +614,16 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
                 arr.insert(-1);
             }
             
+=======
+  
+            t2 /= matrix[j].size();
+            int  k = t1 / t2;
+            t1 = t1 - k * t2;
+            
+            ans.push_back(matrix[j][k]);
+            arr.insert(matrix[j][k]);
+
+>>>>>>> af4bdc2ad2dbe164fd4813f87700411f42d5dbcb
         }
         if (arr.size() > max_current) {
             max_current = arr.size();
@@ -614,7 +631,7 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
         }
         
     }
-
+    
 
     vector<int > output;
     for (int i = 0; i < result.size(); i++) {
