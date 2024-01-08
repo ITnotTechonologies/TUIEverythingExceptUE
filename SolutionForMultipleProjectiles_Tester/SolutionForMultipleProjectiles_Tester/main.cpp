@@ -7,53 +7,53 @@
 
 using namespace std;
 
-const double pi = 3.14159265359;
+const float pi = 3.14159265359;
 
-const double g = 9.81f;
+const float g = 9.81f;
 
-double degreesToRadians(double x) {
+float degreesToRadians(float x) {
     return x * pi / 180;
 }
 
-double TimeOfFlight(double u, double angle, double z) {
-    double u_z = u * std::sin(degreesToRadians(angle));
-    double D = u_z * u_z + 2 * g * z;
-    double x2 = (-u_z - std::sqrt(D)) / (-g);
+float TimeOfFlight(float u, float angle, float z) {
+    float u_z = u * std::sin(degreesToRadians(angle));
+    float D = u_z * u_z + 2 * g * z;
+    float x2 = (-u_z - std::sqrt(D)) / (-g);
 
     return x2;
 
 }
 
-double GetAngleOnThePlane(double x, double y) {
+float GetAngleOnThePlane(float x, float y) {
     if (x == 0) {
         if (y < 0) return 270;
         if (y > 0) return 90;
     }
-    double abs_x = abs(x);
-    double result = std::atan(y / abs_x) * 180 / pi;
+    float abs_x = abs(x);
+    float result = std::atan(y / abs_x) * 180 / pi;
     if (x < 0) result = 180 - result;
     return result;
 
 }
 
 
-void LinePoint2D(double u, std::vector <double> Position, double& result_angle, double& time) {
+void LinePoint2D(float u, std::vector <float> Position, float& result_angle, float& time) {
     result_angle = GetAngleOnThePlane(Position[0], Position[1]);
-    double S = std::sqrt(Position[0] * Position[0] + Position[1] * Position[1]);
+    float S = std::sqrt(Position[0] * Position[0] + Position[1] * Position[1]);
     time = S / u;
 }
 
 
-bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2, double C, std::vector <double> Position1, std::vector <double> Position2, double& result_angle, double Step, double& CollisionTime, double& WaitTime, std::vector<double>& CollisionPosition) {
-    double x_0 = Position2[0] - Position1[0];
-    double y_0 = Position2[1] - Position1[1];
+bool LineParabola2D(float u1, float u2, float starting_angle1, float angle2, float C, std::vector <float> Position1, std::vector <float> Position2, float& result_angle, float Step, float& CollisionTime, float& WaitTime, std::vector<float>& CollisionPosition) {
+    float x_0 = Position2[0] - Position1[0];
+    float y_0 = Position2[1] - Position1[1];
     std::cout << Position2[0] << std::endl;
 
-    std::cout << x_0 << ';' << y_0 << std::endl;
-    double u_x2 = u2 * std::cos(degreesToRadians(angle2));
-    double u_y2 = u2 * std::sin(degreesToRadians(angle2));
+    //std::cout << x_0 << ';' << y_0 << std::endl;
+    float u_x2 = u2 * std::cos(degreesToRadians(angle2));
+    float u_y2 = u2 * std::sin(degreesToRadians(angle2));
     std::cout << u_x2 << ' ' << u_y2 << std::endl;
-    double Time = TimeOfFlight(u2, angle2, Position2[1]);//Get the time of colission of a Balistic Missile with the ground
+    float Time = TimeOfFlight(u2, angle2, Position2[1]);//Get the time of colission of a Balistic Missile with the ground
     result_angle = -90;
     CollisionTime = -1;
     WaitTime = -1;
@@ -62,26 +62,26 @@ bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2,
 
 
 
-    for (double t = 0; t < Time; t += Step) {
-        double s_x = u_x2 * t;
-        double s_y = u_y2 * t - 0.5 * g * t * t;
-        double x = x_0 + s_x;
-        double y = y_0 + s_y;
+    for (float t = 0; t < Time; t += Step) {
+        float s_x = u_x2 * t;
+        float s_y = u_y2 * t - 0.5 * g * t * t;
+        float x = x_0 + s_x;
+        float y = y_0 + s_y;
 
 
-        double angle1 = 0, time1 = -1;
+        float angle1 = 0, time1 = -1;
         std::cout << "t = " << t << std::endl;
-        std::vector <double> CurrentPosition(2);
+        std::vector <float> CurrentPosition(2);
         CurrentPosition[0] = x;
         CurrentPosition[1] = y;
         LinePoint2D(u1, CurrentPosition, angle1, time1);
-        std::cout << "x: " << x << "  y: " << y << std::endl;
-        std::cout << angle1 << "->" << time1 << std::endl;
+        //std::cout << "x: " << x << "  y: " << y << std::endl;
+        //std::cout << angle1 << "->" << time1 << std::endl;
         if (angle1 != angle1) continue; // check the collision with the suroundings for the projectile, fired at an angle = angle1, with g = 0
         if (time1 <= t && angle1 != -90) {
-            double Rotation = abs(starting_angle1 - angle1);
-            double RotationTime = Rotation / C;
-            std::cout << "Rotation: " << Rotation << " RotationTime: " << RotationTime << std::endl;
+            float Rotation = abs(starting_angle1 - angle1);
+            float RotationTime = Rotation / C;
+            //std::cout << "Rotation: " << Rotation << " RotationTime: " << RotationTime << std::endl;
             WaitTime = t - time1;
             if (WaitTime >= RotationTime) {
                 result_angle = angle1;
@@ -99,60 +99,60 @@ bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2,
     return false;
 }
 
-void LinePoint3D(double v, double a, std::vector<double> Position, double& horizontal_angle, double& vertical_angle, double& time) {
+void LinePoint3D(float v, float a, std::vector<float> Position, float& horizontal_angle, float& vertical_angle, float& time) {
     horizontal_angle = GetAngleOnThePlane(Position[0], Position[1]);
     vertical_angle = GetAngleOnThePlane(std::sqrt(Position[0] * Position[0] + Position[1] * Position[1]), Position[2]);
 
-    double S = std::sqrt(Position[0] * Position[0] + Position[1] * Position[1] + Position[2] * Position[2]);
-    double t_a = v / a;
-    //double t_a = 0;
-    double S_a = v / 2 * t_a;
+    float S = std::sqrt(Position[0] * Position[0] + Position[1] * Position[1] + Position[2] * Position[2]);
+    float t_a = v / a;
+    //float t_a = 0;
+    float S_a = v / 2 * t_a;
     S -= S_a;
     time = (S / v) + t_a;
 }
 
 
-bool LineParabola3D(double u1, double a, double u2, double starting_horizontal_angle1, double starting_vertical_angle1, double horizontal_angle2, double vertical_angle2, double c_h, double c_v, std::vector <double> Position1, std::vector <double> Position2, double& horizontal_result_angle, double& vertical_result_angle, double Step, double& CollisionTime, double& WaitTime, double FuelAmount, double FuelPrice) {
-    double x_0 = Position2[0] - Position1[0];
-    double y_0 = Position2[1] - Position1[1];
-    double z_0 = Position2[2] - Position1[2];
-    std::cout << x_0 << ';' << y_0 << ';' << z_0 << std::endl;
-    double u_x2 = u2 * std::cos(degreesToRadians(horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
-    double u_y2 = u2 * std::cos(degreesToRadians(90 - horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
-    double u_z2 = u2 * std::sin(degreesToRadians(vertical_angle2));
-    std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
-    double Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);//Get the time of colission of a Balistic Missile with the ground
-    double result_vertical_angle = -90;
+bool LineParabola3D(float u1, float a, float u2, float starting_horizontal_angle1, float starting_vertical_angle1, float horizontal_angle2, float vertical_angle2, float c_h, float c_v, std::vector <float> Position1, std::vector <float> Position2, float& horizontal_result_angle, float& vertical_result_angle, float Step, float& CollisionTime, float& WaitTime, float FuelAmount, float FuelPrice) {
+    float x_0 = Position2[0] - Position1[0];
+    float y_0 = Position2[1] - Position1[1];
+    float z_0 = Position2[2] - Position1[2];
+    //std::cout << x_0 << ';' << y_0 << ';' << z_0 << std::endl;
+    float u_x2 = u2 * std::cos(degreesToRadians(horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
+    float u_y2 = u2 * std::cos(degreesToRadians(90 - horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
+    float u_z2 = u2 * std::sin(degreesToRadians(vertical_angle2));
+    //std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
+    float Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);//Get the time of colission of a Balistic Missile with the ground
+    float result_vertical_angle = -90;
     CollisionTime = -1;
     WaitTime = -1;
 
-    for (double t = Step; t < Time; t += Step) {
+    for (float t = Step; t < Time; t += Step) {
 
-        double s_x = u_x2 * t;
-        double s_y = u_y2 * t;
-        double s_z = u_z2 * t - 0.5 * t * t * g;
-        std::vector <double> CurrentPosition(3);
+        float s_x = u_x2 * t;
+        float s_y = u_y2 * t;
+        float s_z = u_z2 * t - 0.5 * t * t * g;
+        std::vector <float> CurrentPosition(3);
         CurrentPosition[0] = x_0 + s_x;
         CurrentPosition[1] = y_0 + s_y;
         CurrentPosition[2] = z_0 + s_z;
 
-        double horizontal_angle, vertical_angle1, vertical_angle2, time1, time2;
-        std::cout << "t = " << t << std::endl;
+        float horizontal_angle, vertical_angle1, vertical_angle2, time1, time2;
+        //std::cout << "t = " << t << std::endl;
         LinePoint3D(u1, a, CurrentPosition, horizontal_angle, vertical_angle1, time1);
-        std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
-        std::cout << "x: " << CurrentPosition[0] << "  y: " << CurrentPosition[1] << " z: " << CurrentPosition[2] << std::endl;
-        std::cout << horizontal_angle << ':' << ' ' << vertical_angle1 << "->" << time1 << ' ' << std::endl;
+        //std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
+        //std::cout << "x: " << CurrentPosition[0] << "  y: " << CurrentPosition[1] << " z: " << CurrentPosition[2] << std::endl;
+        //std::cout << horizontal_angle << ':' << ' ' << vertical_angle1 << "->" << time1 << ' ' << std::endl;
         if (vertical_angle1 != vertical_angle1) continue; // check the collision with the suroundings for the projectile, fired at an angle = angle1, with g = 0
         if (time1 * FuelPrice > FuelAmount) continue;
 
         if (time1 <= t && time1 > 0) {
             WaitTime = t - time1;
-            double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - horizontal_angle + starting_horizontal_angle1));
-            double RotationHTime = RotationH / c_h;
-            double RotationV = abs(starting_vertical_angle1 - vertical_angle1);
-            double RotationVTime = RotationV / c_v;
-            double RotationTime = std::max(RotationHTime, RotationVTime);
-            std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
+            float RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - horizontal_angle + starting_horizontal_angle1));
+            float RotationHTime = RotationH / c_h;
+            float RotationV = abs(starting_vertical_angle1 - vertical_angle1);
+            float RotationVTime = RotationV / c_v;
+            float RotationTime = std::max(RotationHTime, RotationVTime);
+            //std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
             if (RotationTime <= WaitTime) {
                 horizontal_result_angle = horizontal_angle;
                 vertical_result_angle = vertical_angle1;
@@ -171,27 +171,27 @@ bool LineParabola3D(double u1, double a, double u2, double starting_horizontal_a
 
 }
 
-double MaxHeight(double u) {
-    double t = 0.5f * TimeOfFlight(u, 90, 0);
+float MaxHeight(float u) {
+    float t = 0.5f * TimeOfFlight(u, 90, 0);
     return (u * t - 0.5f * g * t * t);
 
 }
 
-void ParabolaPoint2D(double u, std::vector<double>& Position, double& angle1, double& angle2, double& time1, double& time2) {
-    double x = Position[0];
-    double y = Position[1];
-    double x_0 = x;
+void ParabolaPoint2D(float u, std::vector<float>& Position, float& angle1, float& angle2, float& time1, float& time2) {
+    float x = Position[0];
+    float y = Position[1];
+    float x_0 = x;
     x = abs(x);
-    double a = -g * 0.5 * std::pow((x / u), 2);
-    double b = x;
-    double c = a - y;
-    std::cout << a << ' ' << b << ' ' << c << std::endl;
-    double D = pow(b, 2) - 4 * a * c;
+    float a = -g * 0.5 * std::pow((x / u), 2);
+    float b = x;
+    float c = a - y;
+    //std::cout << a << ' ' << b << ' ' << c << std::endl;
+    float D = pow(b, 2) - 4 * a * c;
 
     if (D > 0) {
-        std::cout << "2 Solutions\n";
-        double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
-        double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
+        //std::cout << "2 Solutions\n";
+        float t1 = (-1 * b + std::sqrt(D)) / (2 * a);
+        float t2 = (-1 * b - std::sqrt(D)) / (2 * a);
 
 
 
@@ -207,8 +207,8 @@ void ParabolaPoint2D(double u, std::vector<double>& Position, double& angle1, do
     }
     else if (D == 0) {
 
-        double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
-        double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
+        float t1 = (-1 * b + std::sqrt(D)) / (2 * a);
+        float t2 = (-1 * b - std::sqrt(D)) / (2 * a);
 
         std::cout << t1 << ' ' << t2 << std::endl;
 
@@ -239,13 +239,13 @@ void ParabolaPoint2D(double u, std::vector<double>& Position, double& angle1, do
 
 
 
-void ParabolaPoint3D(double u, std::vector<double>& Position, double& horizontal_angle, double& vertical_angle1, double& vertical_angle2, double& time1, double& time2)
+void ParabolaPoint3D(float u, std::vector<float>& Position, float& horizontal_angle, float& vertical_angle1, float& vertical_angle2, float& time1, float& time2)
 {
-    double x = Position[0];
-    double y = Position[1];
-    double z = Position[2];
+    float x = Position[0];
+    float y = Position[1];
+    float z = Position[2];
 
-    std::vector <double> Position2D(2);
+    std::vector <float> Position2D(2);
 
     Position2D[0] = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
     Position2D[1] = z;
@@ -255,47 +255,47 @@ void ParabolaPoint3D(double u, std::vector<double>& Position, double& horizontal
     ParabolaPoint2D(u, Position2D, vertical_angle1, vertical_angle2, time1, time2);
 }
 
-bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1, double starting_vertical_angle1, double horizontal_angle2, double vertical_angle2, double c_h, double c_v, std::vector <double> Position1, std::vector <double> Position2, double& horizontal_result_angle, double& vertical_result_angle, double Step, double& CollisionTime, double& WaitTime) {
-    double x_0 = Position2[0] - Position1[0];
-    double y_0 = Position2[1] - Position1[1];
-    double z_0 = Position2[2] - Position1[2];
-    std::cout << x_0 << ';' << y_0 << ';' << z_0 << std::endl;
-    double u_x2 = u2 * std::cos(degreesToRadians(horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
-    double u_y2 = u2 * std::cos(degreesToRadians(90 - horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
-    double u_z2 = u2 * std::sin(degreesToRadians(vertical_angle2));
+bool ParabolaParabola3D(float u1, float u2, float starting_horizontal_angle1, float starting_vertical_angle1, float horizontal_angle2, float vertical_angle2, float c_h, float c_v, std::vector <float> Position1, std::vector <float> Position2, float& horizontal_result_angle, float& vertical_result_angle, float Step, float& CollisionTime, float& WaitTime) {
+    float x_0 = Position2[0] - Position1[0];
+    float y_0 = Position2[1] - Position1[1];
+    float z_0 = Position2[2] - Position1[2];
+    //std::cout << x_0 << ';' << y_0 << ';' << z_0 << std::endl;
+    float u_x2 = u2 * std::cos(degreesToRadians(horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
+    float u_y2 = u2 * std::cos(degreesToRadians(90 - horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
+    float u_z2 = u2 * std::sin(degreesToRadians(vertical_angle2));
     std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
-    double Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);//Get a time of flight using the UE function for "tsil'"
-    double MaxH = MaxHeight(u1);
-    double result_vertical_angle = -90;
+    float Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);//Get a time of flight using the UE function for "tsil'"
+    float MaxH = MaxHeight(u1);
+    float result_vertical_angle = -90;
     CollisionTime = -1;
     WaitTime = -1;
 
-    for (double t = Step; t < Time; t += Step) {
+    for (float t = Step; t < Time; t += Step) {
 
-        double s_x = u_x2 * t;
-        double s_y = u_y2 * t;
-        double s_z = u_z2 * t - 0.5 * t * t * g;
-        std::vector <double> CurrentPosition(3);
+        float s_x = u_x2 * t;
+        float s_y = u_y2 * t;
+        float s_z = u_z2 * t - 0.5 * t * t * g;
+        std::vector <float> CurrentPosition(3);
         CurrentPosition[0] = x_0 + s_x;
         CurrentPosition[1] = y_0 + s_y;
         CurrentPosition[2] = z_0 + s_z;
 
         if (CurrentPosition[2] > MaxH) continue;
-        double horizontal_angle, vertical_angle1, vertical_angle2, time1, time2;
-        std::cout << "t = " << t << std::endl;
+        float horizontal_angle, vertical_angle1, vertical_angle2, time1, time2;
+        //std::cout << "t = " << t << std::endl;
         ParabolaPoint3D(u1, CurrentPosition, horizontal_angle, vertical_angle1, vertical_angle2, time1, time2);
-        std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
-        std::cout << "x: " << CurrentPosition[0] << "  y: " << CurrentPosition[1] << " z: " << CurrentPosition[2] << std::endl;
-        std::cout << horizontal_angle << ':' << ' ' << vertical_angle1 << "->" << time1 << ' ' << vertical_angle2 << "->" << time2 << std::endl;
+        //std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
+        //std::cout << "x: " << CurrentPosition[0] << "  y: " << CurrentPosition[1] << " z: " << CurrentPosition[2] << std::endl;
+        //std::cout << horizontal_angle << ':' << ' ' << vertical_angle1 << "->" << time1 << ' ' << vertical_angle2 << "->" << time2 << std::endl;
         if (vertical_angle1 == vertical_angle1) { //check the angle at which projectile is fired for collision with surounding environment
             if (time1 <= t && time1 > 0) {
                 WaitTime = t - time1;
-                double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - horizontal_angle + starting_horizontal_angle1));
-                double RotationHTime = RotationH / c_h;
-                double RotationV = abs(starting_vertical_angle1 - vertical_angle1);
-                double RotationVTime = RotationV / c_v;
-                double RotationTime = std::max(RotationHTime, RotationVTime);
-                std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
+                float RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - horizontal_angle + starting_horizontal_angle1));
+                float RotationHTime = RotationH / c_h;
+                float RotationV = abs(starting_vertical_angle1 - vertical_angle1);
+                float RotationVTime = RotationV / c_v;
+                float RotationTime = std::max(RotationHTime, RotationVTime);
+                //std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
                 if (RotationTime <= WaitTime) {
                     horizontal_result_angle = horizontal_angle;
                     vertical_result_angle = vertical_angle1;
@@ -309,12 +309,12 @@ bool ParabolaParabola3D(double u1, double u2, double starting_horizontal_angle1,
         {
             if (time2 <= t && time2 > 0) {
                 WaitTime = t - time2;
-                double RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - abs(horizontal_angle - starting_horizontal_angle1)));
-                double RotationHTime = RotationH / c_h;
-                double RotationV = abs(starting_vertical_angle1 - vertical_angle2);
-                double RotationVTime = RotationV / c_v;
-                double RotationTime = std::max(RotationHTime, RotationVTime);
-                std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
+                float RotationH = std::min(abs(horizontal_angle - starting_horizontal_angle1), (360 - abs(horizontal_angle - starting_horizontal_angle1)));
+                float RotationHTime = RotationH / c_h;
+                float RotationV = abs(starting_vertical_angle1 - vertical_angle2);
+                float RotationVTime = RotationV / c_v;
+                float RotationTime = std::max(RotationHTime, RotationVTime);
+                //std::cout << "RotationH: " << RotationH << " RotationV:" << RotationV << " RotationTime: " << RotationTime << std::endl;
                 if (RotationTime <= WaitTime) {
                     horizontal_result_angle = horizontal_angle;
                     vertical_result_angle = vertical_angle2;
@@ -341,19 +341,22 @@ bool InArr(vector<int> arr, int  a) {
 }
 
 struct object {
-    double x = 0;
-    double y = 0;
-    double z = 0;
+    float x = 0;
+    float y = 0;
+    float z = 0;
     
-    double u = 0;
-    double a = 0;
+    float u = 0;
+    float a = 0;
 
     bool IsBalistic = false;
 
-    double horizontal_angle;
-    double vertical_angle;
-    double c_v = 1;
-    double c_h = 1;
+    float horizontal_angle;
+    float vertical_angle;
+    float c_v = 1;
+    float c_h = 1;
+
+    float fuel_amount;
+    float fuel_price;
 };
 
 
@@ -370,6 +373,8 @@ struct situation_data {
     float CollisionPosition_x = 0;
     float CollisionPosition_y = 0;
     float CollisionPosition_z = 0;
+
+    
 };
 
 
@@ -460,17 +465,40 @@ int main() {
     int target_amount = 4;
     vector <object> targets(target_amount);
     vector < vector<situation_data>> situations_matrix;
-    situations_matrix.resize(target_amount);
+
+    for (int i = 0; i < projectile_amount; i++) {
+        projectiles[i].u = rand() % 100 + 50;
+        projectiles[i].a = rand() % 10;
+        projectiles[i].c_h = rand() % 90;
+        projectiles[i].c_v = rand() % 90;
+        projectiles[i].fuel_amount = rand() % 100;
+        projectiles[i].fuel_price = rand() % 10;
+        projectiles[i].horizontal_angle = rand() % 360;
+        projectiles[i].vertical_angle = rand() % 180;
+        projectiles[i].IsBalistic = (bool)(rand() % 2);
+        projectiles[i].x = rand() % 200;
+        projectiles[i].y = rand() % 200;
+        projectiles[i].z = rand() % 200;
+        cout << i << "projectile->" << "\nU: " << projectiles[i].u << "\na : " << projectiles[i].a << "\nc_h : " << projectiles[i].c_h << "\nc_v : " << projectiles[i].c_v << "\nfuel_amount : " << projectiles[i].fuel_amount << "\nfuel_price : " << projectiles[i].fuel_price << "\nhorizontal_angle : " << projectiles[i].horizontal_angle << "\nvertical_angle : " << projectiles[i].vertical_angle << "\nBalistic ? : " << projectiles[i].IsBalistic << "\nx : " << projectiles[i].x << "\y : " << projectiles[i].y << "\nz : " << projectiles[i].z << endl;
+    }
+
     for (int i = 0; i < target_amount; i++) {
-        situations_matrix[i].resize(projectile_amount);
-        for (int j = 0; j < projectile_amount; j++) {
-            int x = rand() % 2;
-            cout << x << ' ';
-            situations_matrix[i][j].IsPossible = (bool)x;
-        }
-        cout << endl;
+        targets[i].u = rand() % 100;
+        targets[i].a = rand() % 10;
+        targets[i].c_h = rand() % 90;
+        targets[i].c_v = rand() % 90;
+        targets[i].fuel_amount = rand() % 100;
+        targets[i].fuel_price = rand() % 10;
+        targets[i].horizontal_angle = rand() % 360;
+        targets[i].vertical_angle = rand() % 180;
+        targets[i].IsBalistic = 1;
+        targets[i].x = rand() % 200 + 500;
+        targets[i].y = rand() % 200 + 500;
+        targets[i].z = rand() % 200 + 250;
+        cout << i << "target->" << "\nU: " << projectiles[i].u << "\na : " << projectiles[i].a << "\nc_h : " << projectiles[i].c_h << "\nc_v : " << projectiles[i].c_v << "\nfuel_amount : " << projectiles[i].fuel_amount << "\nfuel_price : " << projectiles[i].fuel_price << "\nhorizontal_angle : " << projectiles[i].horizontal_angle << "\nvertical_angle : " << projectiles[i].vertical_angle << "\nBalistic ? : " << projectiles[i].IsBalistic << "\nx : " << projectiles[i].x << "\y : " << projectiles[i].y << "\nz : " << projectiles[i].z << endl;
 
     }
+    
 
     for (int i = 0; i < target_amount; i++) {
         for (int j = 0; j < projectile_amount; j++) {
@@ -483,11 +511,21 @@ int main() {
             Position2[1] = projectiles[j].y;
             Position2[2] = projectiles[j].z;
             if (projectiles[j].IsBalistic) situations_matrix[i][j].IsPossible = ParabolaParabola3D(projectiles[j].u, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime);
-            else situations_matrix[i][j].IsPossible = LineParabola3D(projectiles[j].u, projectiles[j].a, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, )
+            else situations_matrix[i][j].IsPossible = LineParabola3D(projectiles[j].u, projectiles[j].a, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime, projectiles[j].fuel_amount, projectiles[j].fuel_price);
+
         }
     }
     
+    situations_matrix.resize(target_amount);
+    for (int i = 0; i < target_amount; i++) {
+        situations_matrix[i].resize(projectile_amount);
+        for (int j = 0; j < projectile_amount; j++) {
+            bool x = situations_matrix[i][j].IsPossible;
+            cout << x << ' ';
+        }
+        cout << endl;
 
+    }
     
 
     ProcessingSituation(situations_matrix);
