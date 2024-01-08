@@ -37,22 +37,26 @@ float GetAngleOnThePlane(float x, float y) {
 }
 
 
-void LinePoint2D(float u, std::vector <float> Position, float& result_angle, float& time) {
+void LinePoint2D(float v, float a, std::vector <float> Position, float& result_angle, float& time) {
     result_angle = GetAngleOnThePlane(Position[0], Position[1]);
     float S = std::sqrt(Position[0] * Position[0] + Position[1] * Position[1]);
-    time = S / u;
+    float t_a = v / a;
+    //float t_a = 0;
+    float S_a = v / 2 * t_a;
+    S -= S_a;
+    time = (S / v) + t_a;
 }
 
 
-bool LineParabola2D(float u1, float u2, float starting_angle1, float angle2, float C, std::vector <float> Position1, std::vector <float> Position2, float& result_angle, float Step, float& CollisionTime, float& WaitTime, std::vector<float>& CollisionPosition) {
+bool LineParabola2D(float u1, float a, float u2, float starting_angle1, float angle2, float C, std::vector <float> Position1, std::vector <float> Position2, float& result_angle, float Step, float& CollisionTime, float& WaitTime, std::vector<float>& CollisionPosition, float FuelAmount, float FuelPrice) {
     float x_0 = Position2[0] - Position1[0];
     float y_0 = Position2[1] - Position1[1];
-    std::cout << Position2[0] << std::endl;
+    //std::cout << Position2[0] << std::endl;
 
     //std::cout << x_0 << ';' << y_0 << std::endl;
     float u_x2 = u2 * std::cos(degreesToRadians(angle2));
     float u_y2 = u2 * std::sin(degreesToRadians(angle2));
-    std::cout << u_x2 << ' ' << u_y2 << std::endl;
+    //std::cout << u_x2 << ' ' << u_y2 << std::endl;
     float Time = TimeOfFlight(u2, angle2, Position2[1]);//Get the time of colission of a Balistic Missile with the ground
     result_angle = -90;
     CollisionTime = -1;
@@ -74,10 +78,12 @@ bool LineParabola2D(float u1, float u2, float starting_angle1, float angle2, flo
         std::vector <float> CurrentPosition(2);
         CurrentPosition[0] = x;
         CurrentPosition[1] = y;
-        LinePoint2D(u1, CurrentPosition, angle1, time1);
+        LinePoint2D(u1, a, CurrentPosition, angle1, time1);
         //std::cout << "x: " << x << "  y: " << y << std::endl;
         //std::cout << angle1 << "->" << time1 << std::endl;
         if (angle1 != angle1) continue; // check the collision with the suroundings for the projectile, fired at an angle = angle1, with g = 0
+        //std::cout << "Fuel Amount needed: " << time1 * FuelPrice << std::endl;
+        if (time1 * FuelPrice > FuelAmount) continue;
         if (time1 <= t && angle1 != -90) {
             float Rotation = abs(starting_angle1 - angle1);
             float RotationTime = Rotation / C;
@@ -98,6 +104,7 @@ bool LineParabola2D(float u1, float u2, float starting_angle1, float angle2, flo
     if (CollisionTime > 0) return true;
     return false;
 }
+
 
 void LinePoint3D(float v, float a, std::vector<float> Position, float& horizontal_angle, float& vertical_angle, float& time) {
     horizontal_angle = GetAngleOnThePlane(Position[0], Position[1]);
@@ -165,9 +172,9 @@ bool LineParabola3D(float u1, float a, float u2, float starting_horizontal_angle
 
 
     }
-
+    //std::cout << CollisionTime << endl;
     if (CollisionTime > 0) return true;
-    return false;
+    else return false;
 
 }
 
@@ -237,6 +244,77 @@ void ParabolaPoint2D(float u, std::vector<float>& Position, float& angle1, float
 
 }
 
+bool ParabolaParabola2D(float u1, float u2, float starting_angle1, float angle2, float C, std::vector <float> Position1, std::vector <float> Position2, float& result_angle, float Step, float& CollisionTime, float& WaitTime) {
+    float x_0 = Position2[0] - Position1[0];
+    float y_0 = Position2[1] - Position1[1];
+    //std::cout << Position2[0] << std::endl;
+
+    //std::cout << x_0 << ';' << y_0 << std::endl;
+    float u_x2 = u2 * std::cos(degreesToRadians(angle2));
+    float u_y2 = u2 * std::sin(degreesToRadians(angle2));
+    //std::cout << u_x2 << ' ' << u_y2 << std::endl;
+    float Time = TimeOfFlight(u2, angle2, Position2[1]);
+    float MaxH = MaxHeight(u1);
+    //std::cout << MaxH << std::endl;
+    result_angle = -90;
+    CollisionTime = -1;
+    WaitTime = -1;
+
+
+
+    for (float t = 0; t < Time; t += Step) {
+        float s_x = u_x2 * t;
+        float s_y = u_y2 * t - 0.5 * g * t * t;
+        float x = x_0 + s_x;
+        float y = y_0 + s_y;
+
+        if (y > MaxH) continue;
+
+        float angle1, angle2, time1, time2;
+        //std::cout << "t = " << t << std::endl;
+        vector <float> PositionX(2);
+        PositionX[0] = x;
+        PositionX[1] = y;
+        ParabolaPoint2D(u1, PositionX, angle1, angle2, time1, time2);
+        //std::cout << "x: " << x << "  y: " << y << std::endl;
+        //std::cout << angle1 << "->" << time1 << ' ' << angle2 << "->" << time2 << std::endl;
+        if (angle1 == angle1)
+        {
+            if (time1 <= t && angle1 != -90) {
+                float Rotation = abs(starting_angle1 - angle1);
+                float RotationTime = Rotation / C;
+                //float RotationTime = 0;
+                //std::cout << "Rotation: " << Rotation << " RotationTime: " << RotationTime << std::endl;
+                WaitTime = t - time1;
+                if (WaitTime >= RotationTime) {
+                    result_angle = angle1;
+                    CollisionTime = t;
+                    
+                    break;
+                }
+
+            }
+        }
+        if (angle2 == angle2) {
+            if (time2 <= t && angle2 != -90) {
+                float Rotation = abs(starting_angle1 - angle2);
+                float RotationTime = Rotation / C;
+                //float RotationTime = 0;
+                WaitTime = t - time2;
+                if (WaitTime >= RotationTime) {
+                    result_angle = angle2;
+                    CollisionTime = t;
+                    
+                    break;
+                }
+            }
+        }
+
+
+    }
+    if (CollisionTime > 0) return true;
+    return false;
+}
 
 
 void ParabolaPoint3D(float u, std::vector<float>& Position, float& horizontal_angle, float& vertical_angle1, float& vertical_angle2, float& time1, float& time2)
@@ -263,7 +341,7 @@ bool ParabolaParabola3D(float u1, float u2, float starting_horizontal_angle1, fl
     float u_x2 = u2 * std::cos(degreesToRadians(horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
     float u_y2 = u2 * std::cos(degreesToRadians(90 - horizontal_angle2)) * std::cos(degreesToRadians(vertical_angle2));
     float u_z2 = u2 * std::sin(degreesToRadians(vertical_angle2));
-    std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
+    //std::cout << u_x2 << ' ' << u_y2 << ' ' << u_z2 << std::endl;
     float Time = TimeOfFlight(u2, vertical_angle2, Position2[2]);//Get a time of flight using the UE function for "tsil'"
     float MaxH = MaxHeight(u1);
     float result_vertical_angle = -90;
@@ -327,8 +405,9 @@ bool ParabolaParabola3D(float u1, float u2, float starting_horizontal_angle1, fl
 
     }
 
+    //std::cout << CollisionTime << endl;
     if (CollisionTime > 0) return true;
-    return false;
+    else return false;
 
 }
 
@@ -378,7 +457,7 @@ struct situation_data {
 };
 
 
-void CreatingSituation(vector <object> &projectiles, vector <object> &targets, vector <vector<situation_data>> situations_matrix) {
+void CreatingSituation3D(vector <object> &projectiles, vector <object> &targets, vector <vector<situation_data>> &situations_matrix) {
     int target_amount = targets.size();
     int projectile_amount = projectiles.size();
     for (int i = 0; i < target_amount; i++) {
@@ -391,23 +470,78 @@ void CreatingSituation(vector <object> &projectiles, vector <object> &targets, v
             Position2[0] = targets[i].x;
             Position2[1] = targets[i].y;
             Position2[2] = targets[i].z;
-            if (projectiles[j].IsBalistic) situations_matrix[i][j].IsPossible = ParabolaParabola3D(projectiles[j].u, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime);
-            else situations_matrix[i][j].IsPossible = LineParabola3D(projectiles[j].u, projectiles[j].a, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime, projectiles[j].fuel_amount, projectiles[j].fuel_price);
+            bool f;
+            if (targets[i].IsBalistic == false) {
+                situations_matrix[i][j].IsPossible = false;
+                continue;
+            }
+            if (projectiles[j].IsBalistic) {
+                f = ParabolaParabola3D(projectiles[j].u, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime);
+                situations_matrix[i][j].IsPossible = f;
+            }
+            else {
+                f = LineParabola3D(projectiles[j].u, projectiles[j].a, targets[i].u, projectiles[j].horizontal_angle, projectiles[j].vertical_angle, targets[i].horizontal_angle, targets[i].vertical_angle, projectiles[j].c_h, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].horizontal_angle, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime, projectiles[j].fuel_amount, projectiles[j].fuel_price);
+                situations_matrix[i][j].IsPossible = f;
 
+            }
+            //cout << f << ' ';
         }
+        cout << endl;
+    }
+}
+
+void CreatingSituation2D(vector <object>& projectiles, vector <object>& targets, vector <vector<situation_data>>& situations_matrix) {
+    int target_amount = targets.size();
+    int projectile_amount = projectiles.size();
+    for (int i = 0; i < target_amount; i++) {
+        for (int j = 0; j < projectile_amount; j++) {
+            vector <float> Position1(2);
+            Position1[0] = projectiles[j].x;
+            Position1[1] = projectiles[j].z;
+            //Position1[2] = projectiles[j].z;
+            vector <float> Position2(2);
+            Position2[0] = targets[i].x;
+            Position2[1] = targets[i].z;
+            //Position2[2] = targets[i].z;
+            bool f;
+            if (targets[i].IsBalistic == false) {
+                situations_matrix[i][j].IsPossible = false;
+                continue;
+            }
+            if (projectiles[j].IsBalistic) {
+                f = ParabolaParabola2D(projectiles[j].u, targets[i].u, projectiles[j].vertical_angle, targets[i].vertical_angle, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime);
+                situations_matrix[i][j].IsPossible = f;
+            }
+            else {
+                vector <float> CollisionPosition(2);
+
+
+                f = LineParabola2D(projectiles[j].u, projectiles[j].a, targets[i].u, projectiles[j].vertical_angle, targets[i].vertical_angle, projectiles[j].c_v, Position1, Position2, situations_matrix[i][j].vertical_angle, 0.01, situations_matrix[i][j].CollisionTime, situations_matrix[i][j].WaitTime, CollisionPosition, projectiles[j].fuel_amount, projectiles[j].fuel_price);
+                situations_matrix[i][j].IsPossible = f;
+                situations_matrix[i][j].CollisionPosition_x = CollisionPosition[0];
+                situations_matrix[i][j].CollisionPosition_y = CollisionPosition[1];
+            }
+            //cout << f << ' ';
+        }
+        cout << endl;
     }
 }
 
 
-void ProcessingSituation(vector <object> projectiles, vector <object> targets) {
+
+void ProcessingSituation(vector <object> &projectiles, vector <object> &targets, vector <vector<situation_data>> &situations_matrix, vector <int> &linkage) {
+    
     int target_amount = targets.size();
     int projectile_amount = projectiles.size();
-    vector < vector<situation_data>> situations_matrix;
+    //vector <int> linkage(0);
+    vector <bool> ocupied_projectiles(projectile_amount, false);
+    //vector < vector<situation_data>> situations_matrix;
     situations_matrix.resize(target_amount);
     for (int i = 0; i < target_amount; i++) {
         situations_matrix[i].resize(projectile_amount);
     }
-    CreatingSituation(projectiles, targets, situations_matrix);
+    //CreatingSituation3D(projectiles, targets, situations_matrix);
+    CreatingSituation2D(projectiles, targets, situations_matrix);
     for (int i = 0; i < target_amount; i++) {
         for (int j = 0; j < projectile_amount; j++) cout << situations_matrix[i][j].IsPossible << ' ';
         cout << endl;
@@ -415,7 +549,7 @@ void ProcessingSituation(vector <object> projectiles, vector <object> targets) {
     
     //CreatingSituation()
        
-    int  max_possbile = min(projectile_amount, target_amount);
+    int max_possible = min(projectile_amount, target_amount);
     int amount = 1;
     int max_current = 0;
     vector<int> result;
@@ -423,44 +557,56 @@ void ProcessingSituation(vector <object> projectiles, vector <object> targets) {
 
 
     matrix.resize(target_amount);
+    cout << endl;
 
     for (int i = 0; i < target_amount; i++) {
         int a = 0, b = 0;
         for (int j = 0; j < projectile_amount; j++) {
-            if (situations_matrix[i][j].IsPossible) {
+            cout << situations_matrix[i][j].IsPossible << ' ';
+            if (situations_matrix[i][j].IsPossible == true) {
                 matrix[i].push_back(j);
                 a++;
             }
             else {
                 b++;
             }
+            
 
         }
-        amount *= a;
+        if (b == projectile_amount) max_possible--;
+        if (a != 0) amount *= a;
+        cout << endl;
 
     }
 
-    cout << endl;
+    //cout << endl;
 
     for (int i = 0; i < target_amount; i++) {
         for (int j = 0; j < matrix[i].size(); j++) {
-            cout << matrix[i][j] << " ";
+            //cout << matrix[i][j] << " ";
         }
-        cout << endl;
+        //cout << endl;
     }
-    cout << amount << endl << endl;
+    //cout << amount << endl << endl;
     for (int i = 0; i < amount; i++) {
         int  sum = 0;
         int  t1 = i, t2 = amount;
         vector<int > ans;
         set<int > arr;
         for (int j = 0; j < target_amount; j++) {
-            t2 /= matrix[j].size();
-            int  k = t1 / t2;
-            t1 = t1 - k * t2;
+            if (matrix[j].size() != 0) {
+                t2 /= matrix[j].size();
+                int  k = t1 / t2;
+                t1 = t1 - k * t2;
+
+                ans.push_back(matrix[j][k]);
+                arr.insert(matrix[j][k]);
+            }
+            else {
+                ans.push_back(-1);
+                arr.insert(-1);
+            }
             
-            ans.push_back(matrix[j][k]);
-            arr.insert(matrix[j][k]);
         }
         if (arr.size() > max_current) {
             max_current = arr.size();
@@ -472,17 +618,34 @@ void ProcessingSituation(vector <object> projectiles, vector <object> targets) {
 
     vector<int > output;
     for (int i = 0; i < result.size(); i++) {
-        if (InArr(output, result[i]))
+        if (InArr(output, result[i])) {
             output.push_back(-1);
-        else
+        }
+        else {
             output.push_back(result[i]);
+        }
+            
     }
-
-
-
-    for (int i = 0; i < output.size(); i++) {
-        cout << output[i] << " ";
+    
+    linkage = output;
+    for (int i = 0; i < target_amount; i++) {
+        //cout << i << " <-> " << linkage[i] << endl;
+        if (linkage[i] > -1) ocupied_projectiles[linkage[i]] = true;
     }
+    cout << endl << endl;
+    for (int i = 0; i < target_amount; i++) {
+        if (linkage[i] == -1 && targets[i].IsBalistic == false) {
+            for (int j = 0; j < projectile_amount; j++) {
+                if (ocupied_projectiles[j] == false && projectiles[j].IsBalistic == false) {
+                    linkage[i] = j;
+                    ocupied_projectiles[j] = true;
+                }
+            }
+        }
+    }
+    /*for (int i = 0; i < target_amount; i++) {
+        cout << i << " <-> " << linkage[i] << endl;
+    }*/
 }
 
 
@@ -491,8 +654,10 @@ int main() {
     ios_base::sync_with_stdio(false);
     int projectile_amount = 5;
     vector <object> projectiles(projectile_amount);
-    int target_amount = 4;
+    int target_amount = 8;
     vector <object> targets(target_amount);
+    vector <int> linkage;
+    vector <vector <situation_data>> matrix;
     
 
     for (int i = 0; i < projectile_amount; i++) {
@@ -520,21 +685,21 @@ int main() {
         targets[i].fuel_price = rand() % 10;
         targets[i].horizontal_angle = rand() % 360;
         targets[i].vertical_angle = rand() % 180;
-        targets[i].IsBalistic = 1;
+        targets[i].IsBalistic = rand() % 2;
         targets[i].x = rand() % 200 + 500;
         targets[i].y = rand() % 200 + 500;
         targets[i].z = rand() % 200 + 250;
         cout << i << "target->" << "\nU: " << targets[i].u << "\na : " << targets[i].a << "\nc_h : " << targets[i].c_h << "\nc_v : " << targets[i].c_v << "\nfuel_amount : " << targets[i].fuel_amount << "\nfuel_price : " << targets[i].fuel_price << "\nhorizontal_angle : " << targets[i].horizontal_angle << "\nvertical_angle : " << targets[i].vertical_angle << "\nBalistic ? : " << targets[i].IsBalistic << "\nx : " << targets[i].x << "\y : " << targets[i].y << "\nz : " << targets[i].z << endl;
 
     }
-    
+    int aerodynamical_target_amount = 5;
+    vector <object> aerodynamical_targets(aerodynamical_target_amount);
 
-    
-    
-    
-    
+    for (int i = 0; i < aerodynamical_target_amount; i++) {
+        aerodynamical_targets[i].u = rand() % 100 + 100;
+    }
 
-    ProcessingSituation(projectiles, targets);
+    ProcessingSituation(projectiles, targets, matrix, linkage);
 
     
 }

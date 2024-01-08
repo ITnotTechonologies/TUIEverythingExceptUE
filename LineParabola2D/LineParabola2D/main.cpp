@@ -124,14 +124,18 @@ double GetAngleOnThePlane(double x, double y) {
 }
 
 
-void LinePoint2D(double u, std::vector <double> Position, double& result_angle, double& time) {
+void LinePoint2D(double v, double a, std::vector <double> Position, double& result_angle, double& time) {
     result_angle = GetAngleOnThePlane(Position[0], Position[1]);
     double S = std::sqrt(Position[0] * Position[0] + Position[1] * Position[1]);
-    time = S / u;
+    double t_a = v / a;
+    //double t_a = 0;
+    double S_a = v / 2 * t_a;
+    S -= S_a;
+    time = (S / v) + t_a;
 }
 
 
-bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2, double C, std::vector <double> Position1, std::vector <double> Position2, double& result_angle, double Step, double& CollisionTime, double& WaitTime, std::vector<double>& CollisionPosition, double FuelAmount, double FuelPrice) {
+bool LineParabola2D(double u1, double a, double u2, double starting_angle1, double angle2, double C, std::vector <double> Position1, std::vector <double> Position2, double& result_angle, double Step, double& CollisionTime, double& WaitTime, std::vector<double>& CollisionPosition, double FuelAmount, double FuelPrice) {
     double x_0 = Position2[0] - Position1[0];
     double y_0 = Position2[1] - Position1[1];
     std::cout << Position2[0] << std::endl;
@@ -161,7 +165,7 @@ bool LineParabola2D(double u1, double u2, double starting_angle1, double angle2,
         std::vector <double> CurrentPosition(2);
         CurrentPosition[0] = x;
         CurrentPosition[1] = y;
-        LinePoint2D(u1, CurrentPosition, angle1, time1);
+        LinePoint2D(u1, a, CurrentPosition, angle1, time1);
         std::cout << "x: " << x << "  y: " << y << std::endl;
         std::cout << angle1 << "->" << time1 << std::endl;
         if (angle1 != angle1) continue; // check the collision with the suroundings for the projectile, fired at an angle = angle1, with g = 0
@@ -229,7 +233,7 @@ int main()
     RemakePosition1[1] = 750 - Position1[1];
     double ResultVerticalAngle;
     double c_v = 10;
-    bool f = LineParabola2D(U1, U2, VerticalAngle1, VerticalAngle2, 5, RemakePosition1, RemakePosition2, ResultVerticalAngle, 0.1f, CollisionTime, WaitTime, CollisionPosition);
+    bool f = LineParabola2D(U1, 10000000,  U2, VerticalAngle1, VerticalAngle2, 5, RemakePosition1, RemakePosition2, ResultVerticalAngle, 0.1f, CollisionTime, WaitTime, CollisionPosition, 100, 0);
     std::cout << ResultVerticalAngle << ' ' << CollisionTime << std::endl;
 
     while (window.isOpen())

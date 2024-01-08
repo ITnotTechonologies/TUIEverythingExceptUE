@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\Home User\Documents\GitHub\TUIBackUp\Tester\Tester\main.cpp(11,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\Tester\Tester\main.cpp(34,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Home User\Documents\GitHub\TUIBackUp\Tester\Tester\main.cpp(65,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\Tester\Tester\main.cpp(93,24): warning C4018: '>': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\Tester\Tester\main.cpp(103,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Home User\Documents\GitHub\TUIBackUp\Tester\Tester\main.cpp(112,29): warning C4018: '<': signed/unsigned mismatch
+  Tester.vcxproj -> C:\Users\Home User\Documents\GitHub\TUIBackUp\Tester\x64\Debug\Tester.exe

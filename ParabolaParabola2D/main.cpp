@@ -111,21 +111,23 @@ void DrawLine(std::vector <double>& InitialPosition, double InitialVelocity, dou
 
 
 
-void ParabolaPoint2D(double u, double x, double y, double& angle1, double& angle2, double &time1, double &time2) {
+void ParabolaPoint2D(double u, std::vector<double>& Position, double& angle1, double& angle2, double& time1, double& time2) {
+    double x = Position[0];
+    double y = Position[1];
     double x_0 = x;
     x = abs(x);
     double a = -g * 0.5 * std::pow((x / u), 2);
     double b = x;
     double c = a - y;
-    std::cout << a << ' ' << b << ' ' << c << std::endl;
+    //std::cout << a << ' ' << b << ' ' << c << std::endl;
     double D = pow(b, 2) - 4 * a * c;
 
     if (D > 0) {
-        std::cout << "2 Solutions\n";
+        //std::cout << "2 Solutions\n";
         double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
         double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
 
-        
+
 
         angle1 = std::atan(t1) * 180 / pi;
         angle2 = std::atan(t2) * 180 / pi;
@@ -138,7 +140,7 @@ void ParabolaPoint2D(double u, double x, double y, double& angle1, double& angle
 
     }
     else if (D == 0) {
-        
+
         double t1 = (-1 * b + std::sqrt(D)) / (2 * a);
         double t2 = (-1 * b - std::sqrt(D)) / (2 * a);
 
@@ -150,12 +152,12 @@ void ParabolaPoint2D(double u, double x, double y, double& angle1, double& angle
         time1 = x / (u * std::cos(degreesToRadians(angle1)));
         time2 = x / (u * std::cos(degreesToRadians(angle2)));
 
-       
+
 
 
     }
     else {
-        
+
         angle1 = -90;
         angle2 = -90;
         time1 = -1;
@@ -165,10 +167,10 @@ void ParabolaPoint2D(double u, double x, double y, double& angle1, double& angle
         angle1 = 180 - angle1;
         angle2 = 180 - angle2;
     }
-    time1 = Rounding(time1, 0.01f);
-    time2 = Rounding(time2, 0.01f);
+
 
 }
+
 
 bool ParabolaParabola2D(double u1, double u2, double starting_angle1, double angle2, double C, std::vector <double> Position1, std::vector <double> Position2, double& result_angle, double Step, double& CollisionTime, double& WaitTime, std::vector<double>& CollisionPosition) {
     double x_0 = Position2[0] - Position1[0];
@@ -200,7 +202,10 @@ bool ParabolaParabola2D(double u1, double u2, double starting_angle1, double ang
 
         double angle1, angle2, time1, time2;
         std::cout << "t = " << t << std::endl;
-        ParabolaPoint2D(u1, x, y, angle1, angle2, time1, time2);
+        std::vector <double> PositionX(2);
+        PositionX[0] = x;
+        PositionX[1] = y;
+        ParabolaPoint2D(u1, PositionX, angle1, angle2, time1, time2);
         std::cout << "x: " << x << "  y: " << y << std::endl;
         std::cout << angle1 << "->" << time1 << ' ' << angle2 << "->" << time2 << std::endl;
         if (angle1 == angle1)
@@ -236,7 +241,7 @@ bool ParabolaParabola2D(double u1, double u2, double starting_angle1, double ang
                 }
             }
         }
-        
+
 
     }
     if (CollisionTime > 0) return true;
