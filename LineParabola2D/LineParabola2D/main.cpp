@@ -256,7 +256,7 @@ int main()
 
         /*DrawParabola(Position1, U1, ResultHorizontalAngle, ResultVerticalAngle, Time - WaitTime, D_TIME, sf::Color::Yellow, sf::Color::Blue, 0);
         DrawParabola(Position2, U2, HorizontalAngle2, VerticalAngle2, Time, D_TIME, sf::Color::Yellow, sf::Color::Bl*/
-        window.draw(Point);
+        //window.draw(Point);
         DrawParabola(Position2, U2, 0, VerticalAngle2, Time, 0.1f, sf::Color::Green, sf::Color::Yellow, 0);
         DrawLine(Position1, U1, ResultVerticalAngle, Time - WaitTime, D_TIME, sf::Color::Green, sf::Color::Yellow);
 
