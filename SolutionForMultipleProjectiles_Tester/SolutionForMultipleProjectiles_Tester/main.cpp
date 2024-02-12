@@ -661,6 +661,27 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
         cout << i << " <-> " << linkage[i] << endl;
     }*/
 }
+vector <pair <float, float>> splitting(vector <float> a1, vector <float> a2) {
+  int n = a1.size();
+  int m = a2.size();
+
+  sort(a1.begin(), a1.end());
+  sort(a2.begin(), a2.end());
+
+  vector <pair <float, float>> ans;
+  
+  int c = 0;
+  for (int i = 0; i < n; i++) {
+    while (c < m and a2[c] < a1[i])
+      c++;
+    if (c == m)
+      break;
+    ans.push_back({a1[i], a2[c]});
+    c++;
+  }
+
+  return ans;
+}
 
 
 int main() {
