@@ -643,7 +643,7 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
     
     linkage = output;
     for (int i = 0; i < target_amount; i++) {
-        //cout << i << " <-> " << linkage[i] << endl;
+        cout << i << " <-> " << linkage[i] << endl;
         if (linkage[i] > -1) ocupied_projectiles[linkage[i]] = true;
     }
     cout << endl << endl;
@@ -657,9 +657,10 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
             }
         }
     }
-    /*for (int i = 0; i < target_amount; i++) {
+
+    for (int i = 0; i < target_amount; i++) {
         cout << i << " <-> " << linkage[i] << endl;
-    }*/
+    }
 }
 vector <pair <float, float>> splitting(vector <float> a1, vector <float> a2) {
   int n = a1.size();
