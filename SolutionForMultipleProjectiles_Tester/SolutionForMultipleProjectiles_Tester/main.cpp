@@ -240,7 +240,7 @@ void ParabolaPoint2D(float u, std::vector<float>& Position, float& angle1, float
         angle1 = 180 - angle1;
         angle2 = 180 - angle2;
     }
-    
+
 
 }
 
@@ -289,7 +289,7 @@ bool ParabolaParabola2D(float u1, float u2, float starting_angle1, float angle2,
                 if (WaitTime >= RotationTime) {
                     result_angle = angle1;
                     CollisionTime = t;
-                    
+
                     break;
                 }
 
@@ -304,7 +304,7 @@ bool ParabolaParabola2D(float u1, float u2, float starting_angle1, float angle2,
                 if (WaitTime >= RotationTime) {
                     result_angle = angle2;
                     CollisionTime = t;
-                    
+
                     break;
                 }
             }
@@ -327,7 +327,7 @@ void ParabolaPoint3D(float u, std::vector<float>& Position, float& horizontal_an
 
     Position2D[0] = std::sqrt(std::pow(x, 2) + std::pow(y, 2));
     Position2D[1] = z;
-    
+
     horizontal_angle = GetAngleOnThePlane(x, y);
 
     ParabolaPoint2D(u, Position2D, vertical_angle1, vertical_angle2, time1, time2);
@@ -423,7 +423,7 @@ struct object {
     float x = 0;
     float y = 0;
     float z = 0;
-    
+
     float u = 0;
     float a = 0;
 
@@ -444,7 +444,7 @@ struct situation_data {
 
     float horizontal_angle = 0;
     float vertical_angle = 0;
-    
+
     float CollisionTime;
 
     float WaitTime;
@@ -453,11 +453,11 @@ struct situation_data {
     float CollisionPosition_y = 0;
     float CollisionPosition_z = 0;
 
-    
+
 };
 
 
-void CreatingSituation3D(vector <object> &projectiles, vector <object> &targets, vector <vector<situation_data>> &situations_matrix) {
+void CreatingSituation3D(vector <object>& projectiles, vector <object>& targets, vector <vector<situation_data>>& situations_matrix) {
     int target_amount = targets.size();
     int projectile_amount = projectiles.size();
     for (int i = 0; i < target_amount; i++) {
@@ -529,8 +529,8 @@ void CreatingSituation2D(vector <object>& projectiles, vector <object>& targets,
 
 
 
-void ProcessingSituation(vector <object> &projectiles, vector <object> &targets, vector <vector<situation_data>> &situations_matrix, vector <int> &linkage) {
-    
+void ProcessingSituation(vector <object>& projectiles, vector <object>& targets, vector <vector<situation_data>>& situations_matrix, vector <int>& linkage) {
+
     int target_amount = targets.size();
     int projectile_amount = projectiles.size();
     //vector <int> linkage(0);
@@ -546,9 +546,9 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
         for (int j = 0; j < projectile_amount; j++) cout << situations_matrix[i][j].IsPossible << ' ';
         cout << endl;
     }
-    
+
     //CreatingSituation()
-       
+
     int max_possible = min(projectile_amount, target_amount);
     int amount = 1;
     int max_current = 0;
@@ -570,7 +570,7 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
             else {
                 b++;
             }
-            
+
 
         }
         if (b == projectile_amount) max_possible--;
@@ -582,13 +582,10 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
     //cout << endl;
 
     for (int i = 0; i < target_amount; i++) {
-    
         for (int j = 0; j < matrix[i].size(); j++) {
             //cout << matrix[i][j] << " ";
         }
-
         //cout << endl;
-
     }
     //cout << amount << endl << endl;
     for (int i = 0; i < amount; i++) {
@@ -597,7 +594,6 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
         vector<int > ans;
         set<int > arr;
         for (int j = 0; j < target_amount; j++) {
-
             if (matrix[j].size() != 0) {
                 t2 /= matrix[j].size();
                 int  k = t1 / t2;
@@ -610,25 +606,15 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
                 ans.push_back(-1);
                 arr.insert(-1);
             }
-            
-
-  
-            t2 /= matrix[j].size();
-            int  k = t1 / t2;
-            t1 = t1 - k * t2;
-            
-            ans.push_back(matrix[j][k]);
-            arr.insert(matrix[j][k]);
-
 
         }
         if (arr.size() > max_current) {
             max_current = arr.size();
             result = ans;
         }
-        
+
     }
-    
+
 
     vector<int > output;
     for (int i = 0; i < result.size(); i++) {
@@ -638,12 +624,12 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
         else {
             output.push_back(result[i]);
         }
-            
+
     }
-    
+
     linkage = output;
     for (int i = 0; i < target_amount; i++) {
-        cout << i << " <-> " << linkage[i] << endl;
+        //cout << i << " <-> " << linkage[i] << endl;
         if (linkage[i] > -1) ocupied_projectiles[linkage[i]] = true;
     }
     cout << endl << endl;
@@ -657,31 +643,9 @@ void ProcessingSituation(vector <object> &projectiles, vector <object> &targets,
             }
         }
     }
-
     for (int i = 0; i < target_amount; i++) {
         cout << i << " <-> " << linkage[i] << endl;
     }
-}
-vector <pair <float, float>> splitting(vector <float> a1, vector <float> a2) {
-  int n = a1.size();
-  int m = a2.size();
-
-  sort(a1.begin(), a1.end());
-  sort(a2.begin(), a2.end());
-
-  vector <pair <float, float>> ans;
-  
-  int c = 0;
-  for (int i = 0; i < n; i++) {
-    while (c < m and a2[c] < a1[i])
-      c++;
-    if (c == m)
-      break;
-    ans.push_back({a1[i], a2[c]});
-    c++;
-  }
-
-  return ans;
 }
 
 
@@ -694,7 +658,7 @@ int main() {
     vector <object> targets(target_amount);
     vector <int> linkage;
     vector <vector <situation_data>> matrix;
-    
+
 
     for (int i = 0; i < projectile_amount; i++) {
         projectiles[i].u = rand() % 100 + 100;
@@ -737,8 +701,7 @@ int main() {
 
     ProcessingSituation(projectiles, targets, matrix, linkage);
 
-    
-}
 
+}
 
 
